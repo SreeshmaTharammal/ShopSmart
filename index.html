@@ -1,13 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <!-- Character Set Declaration -->
     <meta charset="UTF-8">
+    <!-- Viewport Configuration for Responsive Design -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--Meta tags for search engines-->
+    <meta name="description" content="Plan and organize your grocery shopping with ease. Create, manage, and 
+    share your shopping lists online. Stay organized, save time, and make your trips to the grocery store more 
+    efficient with our user-friendly shopping list app.">
+    <meta name="keywords" content="grocery shopping, shopping list, grocery list, shopping app, grocery app, meal planning, 
+    shopping organizer, grocery management, food shopping, grocery essentials">
+
+    <!--Favicon-->
+
+    <!--Stylesheet-->
     <link rel="stylesheet" href="assets/css/style.css">
+
+    <!--Title-->
     <title>ShopSmart</title>
 </head>
+
 <body>
-    
+    <!--Main content-->
+    <main id="main-container">
+        
+    <!--Header-->
+    <header id="logo">
+        <h1>Shop<img src="assets/images/shopping_list_logo.png" alt="ShopSmart app logo">Smart</h1>
+    </header>
+
+    <!-- Shopping list names section -->
+    <section id="list-names-section">
+        <!-- Shopping list names section heading - inludes heading text, search and add buttons -->
+        <header class="list_heading">
+            <h2 class="list_heading_text">Lists</h2>
+            <div class="list-heading-div">
+                <input class="search-field" type="search" id="search-btn" name="search-btn">
+                <label for="search-btn" class="search-btn" aria-label="Search icon">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </label>
+
+                <label for="list-add-btn" class="list-add-btn" aria-label="List add button icon">
+                    <i class="fa-solid fa-plus"></i>
+                </label>
+            </div>
+        </header>
+       
+
+        <div class="list-names-container"></div>
+
+    </section>
+
+    <!-- Items list section -->
+    <section>
+
+    </section>
+    </main>
+
+    <!--Footer-->
+    <footer></footer>
+
+    <!-- Script -->
     <script src="assets/js/script.js"></script>
+    <!--Font Awosome kit-->
+    <script src="https://kit.fontawesome.com/aeb8fe6356.js" crossorigin="anonymous"></script>
 </body>
+
 </html>

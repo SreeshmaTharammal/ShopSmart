@@ -1,0 +1,123 @@
+ /* Google fonts import */
+ @import url('https://fonts.googleapis.com/css2?family=Inter&family=Lemon&display=swap');
+
+ /*Asterisk wildcard selector to override default styles added by browser*/
+ *,
+ *::before,
+ *::after {
+     box-sizing: border-box;
+     margin: 0;
+     padding: 0;
+ }
+
+ /* Apply to hide screen */
+ .hide {
+    display: none;
+ }
+
+ /* Main container */
+ #main-container {
+    background-color:antiquewhite;
+    min-width: 300px;
+    min-height: 400px;
+    max-width: 900px;    
+    position: relative;   
+
+    display: flex;
+    flex-direction: column;  
+    flex-wrap: wrap;
+    align-items: baseline;
+    flex: 1;      
+ }
+
+ /* Header */
+ #logo {
+    background-color: #a4c2a8;
+    font-family: 'Lemon', serif;    
+    text-transform: capitalize;
+    color:#0471a6;    
+    width: 100%;
+    text-align: center;
+    position: absolute;         
+    flex: 1;         
+    z-index: 99;    
+    padding: 0 1rem;    
+ }
+
+ /* Set logo image width and height */
+ #logo img {
+    width: 50px;
+    height: 50px;
+ }
+
+ /* Shopping list names section */
+ #list-names-section {    
+    margin-top: 57px;
+    width: 100%;        
+
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+ }
+
+ /* Shopping list names section heading - inludes heading text, search and add buttons */
+ .list_heading {
+    background-color: #0471a6;
+    color: white;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    flex: 1;
+ }
+
+ .list_heading_text {
+    /* 'Lists' heading expand and take up available space within the flex container */
+    flex: 1; 
+    padding: 10px;    
+ }
+
+ .list-heading-div {    
+    margin-right: 20px;    
+
+    display: flex;
+    justify-content: space-around;
+    flex-basis: 100px; 
+ }
+
+ .search-field {
+    display: none;    
+ }
+
+ .search-btn {
+    padding-right: 10px;
+ }
+
+ .list-add-btn {
+     padding-right: 10px;
+  }
+
+
+ /* Media query for laptops and larger devices */
+@media screen and (min-width: 900px) {
+    /* Align main continer to center of the web page*/
+    body {
+        background-image: url("/assets/images/shopping_trolleys_images.jpg");
+        background-color: lavender;
+        display: flex;
+        justify-content:center;
+        align-items: center;
+        /* Ensure the body takes up the full viewport height */
+        height: 100vh;       
+    }
+
+    #main-container {
+        border-radius: 20px;
+    }
+
+    #logo {
+        border-radius: 20px 20px 0 0;
+    }
+  }
