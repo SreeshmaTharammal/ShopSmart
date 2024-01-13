@@ -12,7 +12,7 @@
 
  /* Apply to hide screen */
  .hide {
-    display: none;
+    display: none;   
  }
 
  /* Main container */
@@ -50,24 +50,27 @@
     height: 50px;
  }
 
- /* Shopping list names section */
- #list-names-section {    
+  /*----- << Shopping list names screen >>----- */ 
+ .list-names-section, .items_list_section{    
     margin-top: 57px;
     width: 100%;        
 
     display: flex;
     justify-content: space-between;
     align-items: baseline;
+    flex-direction: column;
     flex-wrap: wrap;
  }
 
  /* Shopping list names section heading - inludes heading text, search and add buttons */
- .list_heading {
+ .list_heading, .items_list_heading {
     background-color: #0471a6;
     color: white;
+    width: 100%;    
 
     display: flex;
     justify-content: space-between;
+    flex-direction: row;
     align-items: baseline;
     flex-wrap: wrap;
     flex: 1;
@@ -79,36 +82,80 @@
     padding: 10px;    
  }
 
- .list-heading-div {    
+ .list-heading-div {           
     margin-right: 20px;    
-
+    
     display: flex;
     justify-content: space-around;
-    flex-basis: 100px; 
- }
-
- .search-field {
-    display: none;    
- }
+    flex-basis: 100px;     
+ } 
 
  .search-btn {
+    padding-left: 10px;
     padding-right: 10px;
  }
 
  .list-add-btn {
      padding-right: 10px;
   }
+  
+  /*----- << Items list screen >>----- */ 
+  #items_list_section {
+    margin-top: 0;
+  }
 
+  .items_list_heading {    
+    padding: 10px;
+  }
+
+  .back-arrow {
+    padding-left: 10px;       
+    flex-basis: 50px;
+  }
+
+  .items_list_heading_text {    
+    flex: 1;
+  }
+
+  .delete_all_btn {
+    padding-right: 10px;
+  }
+
+ .add-item-tab {  
+    background-color: white;  
+    width: 100%;
+    
+    display: flex;
+    justify-content:center;
+    align-items: center;        
+ }
+
+ .add_item_tab_content {
+    background-color: white;
+
+    display: flex;
+    justify-content:center;
+    align-items: center;   
+
+    border:2px solid darkgray;
+    padding: 5px 10px;
+ }
+
+ .add-item-text {
+    padding-left: 10px;
+ }
 
  /* Media query for laptops and larger devices */
 @media screen and (min-width: 900px) {
     /* Align main continer to center of the web page*/
     body {
-        background-image: url("/assets/images/shopping_trolleys_images.jpg");
+        background-image: url("../images/shopping_trolleys_images.jpg");
         background-color: lavender;
+
         display: flex;
         justify-content:center;
         align-items: center;
+
         /* Ensure the body takes up the full viewport height */
         height: 100vh;       
     }
