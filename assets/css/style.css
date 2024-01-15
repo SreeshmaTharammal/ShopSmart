@@ -10,6 +10,11 @@
      padding: 0;
  }
 
+ h4 {
+    margin: 0.5rem;
+    color: #0471a6;
+ }
+
  /* Apply to hide screen */
  .hide {
     display: none;   
@@ -50,8 +55,8 @@
     height: 50px;
  }
 
-  /*----- << Shopping list names screen >>----- */ 
- .list-names-section, .items_list_section{    
+#list-names-section, .items-list-section,
+ #add-new-list-section{    
     margin-top: 57px;
     width: 100%;        
 
@@ -63,7 +68,8 @@
  }
 
  /* Shopping list names section heading - inludes heading text, search and add buttons */
- .list_heading, .items_list_heading {
+ .list-heading, .items-list-heading,
+ .add-new-list-heading {
     background-color: #0471a6;
     color: white;
     width: 100%;    
@@ -76,7 +82,7 @@
     flex: 1;
  }
 
- .list_heading_text {
+ .list-heading-text {
     /* 'Lists' heading expand and take up available space within the flex container */
     flex: 1; 
     padding: 10px;    
@@ -100,11 +106,11 @@
   }
   
   /*----- << Items list screen >>----- */ 
-  #items_list_section {
+  #items-list-section {
     margin-top: 0;
   }
 
-  .items_list_heading {    
+  .items-list-heading {    
     padding: 10px;
   }
 
@@ -113,11 +119,11 @@
     flex-basis: 50px;
   }
 
-  .items_list_heading_text {    
+  .items-list-heading-text {    
     flex: 1;
   }
 
-  .delete_all_btn {
+  .delete-all-btn {
     padding-right: 10px;
   }
 
@@ -130,7 +136,7 @@
     align-items: center;        
  }
 
- .add_item_tab_content {
+ .add-item-tab-content {
     background-color: white;
 
     display: flex;
@@ -145,6 +151,28 @@
     padding-left: 10px;
  }
 
+ /*----- << Add new list screen >>----- */ 
+ .new-list-xmark {    
+    font-size: 20px;
+    padding-left: 15px;
+ }
+
+ #new-list-save {
+    padding-right: 30px;
+ }
+
+ .list-name-field-div {
+    margin: 1rem;
+    border-bottom: .15rem solid #0471a6;
+ } 
+
+ #list-name-text-field {       
+    border: none;  
+    outline: none;    
+    width: 100%;  
+    height: 2rem
+ }
+
  /* Media query for laptops and larger devices */
 @media screen and (min-width: 900px) {
     /* Align main continer to center of the web page*/
@@ -156,8 +184,8 @@
         justify-content:center;
         align-items: center;
 
-        /* Ensure the body takes up the full viewport height */
-        height: 100vh;       
+        /* Sets the height of an element to 50% of the viewport height */
+        height: 50vh;       
     }
 
     #main-container {
