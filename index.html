@@ -33,43 +33,45 @@
     </header>
 
     <!-- Shopping list names section -->
-    <section class="list-names-section">
-        <!-- Shopping list names section heading - inludes heading text, search and add buttons -->
-        <header class="list_heading" >
-            <h2  class="list_heading_text">Lists</h2>
-            <div class="list-heading-div">
-                <input class="hide" class="search-field" type="search" id="search-btn" name="search-btn">
-                <label for="search-btn" class="search-btn" aria-label="Search icon">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </label>
+  <!--  <div id="test">-->
+    <section id="list-names-section">
+       <!-- <div id="list-names-section-div" >-->
+            <!-- Shopping list names section heading - inludes heading text, search and add buttons -->
+            <header class="list-heading" >
+                <h2  class="list-heading-text">Lists</h2>
+                <div class="list-heading-div">
+                    <input class="hide" class="search-field" type="search" id="search-btn" name="search-btn">
+                    <label for="search-btn" class="search-btn" aria-label="Search icon">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </label>
 
-                <label for="list-add-btn" class="list-add-btn" aria-label="List add button icon" id="list-add-btn">
-                    <i class="fa-solid fa-plus"></i>
-                </label>
-            </div>
-        </header>
-       
+                    <label for="list-add-btn" id="list-add-btn" class="list-add-btn" aria-label="List add button icon">
+                        <i class="fa-solid fa-plus"></i>
+                    </label>
+                </div>
+            </header>
+        
 
-        <div class="list-names-container"></div>
-
+            <div id="list-names-container"></div>
+      <!--  </div>-->
     </section>
-
+    <!--</div>-->
     <!-- Items list section -->
-    <section class="hide" class="items_list_section">
-        <header class="items_list_heading">
+    <section class="hide" class="items-list-section">
+        <header class="items-list-heading">
             <label for="back-arrow" class="back-arrow" aria-label="Back arrow icon">
                 <i class="fa-solid fa-arrow-left"></i>
             </label>
 
-            <h2 class="items_list_heading_text">Test</h2>
+            <h2 class="items-list-heading-text">Test</h2>
             
-            <label for="delete_all_btn" class="delete_all_btn" aria-label="Delete all items button">
+            <label for="delete-all-btn" class="delete-all-btn" aria-label="Delete all items button">
                <!-- <i class="fa-regular fa-circle-trash"></i>-->
                <i class="fa-solid fa-magnifying-glass"></i>
             </label>           
         </header>
         <div class="add-item-tab">
-            <div class="add_item_tab_content">
+            <div class="add-item-tab-content">
                 <label for="add-item-btn" class="add-item-btn" aria-label="Item add button icon">
                     <i class="fa-solid fa-plus"></i>
                 </label>
@@ -77,8 +79,26 @@
             </div>
         </div>
         <div class="items-list-container"></div>
-
     </section>
+
+    <!-- Add new list section -->
+    <section id="add-new-list-section" style="display: none;">
+        <header class="add-new-list-heading">
+            <label for="new-list-xmark" class="new-list-xmark" aria-label="New list screen xmark">
+                <i class="fa-solid fa-xmark"></i>
+            </label>
+
+            <h2 class="add-new-list-heading-text">NewList</h2>            
+            
+               <h3 id="new-list-save">SAVE</h3>
+            </label>           
+        </header>
+        <div class="list-name-field-div">
+            <h4>List Name</h4>
+            <input id="list-name-text-field" type="text" name="list-name-text-field">            
+        </div>
+    </section>
+
     </main>
 
     <!--Footer-->
