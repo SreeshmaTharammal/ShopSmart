@@ -75,6 +75,29 @@ function saveListName() {
 
     // Clear list name screen text field
      newList.children[1].children[1].value = '';        
+
+     saveData();
 }
+
+function saveData() {
+    
+    localStorage.setItem('data', listNamesContainer.innerHTML);
+}
+
+function showList() {
+    listNamesContainer.innerHTML = localStorage.getItem('data');
+}
+
+let addListButton = document.getElementById('list-add-btn');
+addListButton.addEventListener('click', addListName);
+
+let save = document.getElementById('new-list-save');
+save.addEventListener('click', saveListName);
+
+let backHome = document.querySelector('.back-arrow');
+backHome.addEventListener('click', backToHome);
+
+showList();
+
 
 
