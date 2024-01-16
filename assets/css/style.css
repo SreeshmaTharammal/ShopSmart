@@ -53,13 +53,14 @@
     padding: 0 1rem;    
  }
 
- /* Set logo image width and height */
+  /* Set logo image width and height */
  #logo img {
     width: 50px;
     height: 50px;
  }
 
-#list-names-section, .items-list-section,
+ /*----- << Items list screen >>----- */
+#list-names-section, #items-list-section,
  #add-new-list-section{    
     margin-top: 57px;
     width: 100%;        
@@ -76,14 +77,14 @@
  .add-new-list-heading {
     background-color: #0471a6;
     color: white;
-    width: 100%;    
+    width: 100%;  
 
     display: flex;
     justify-content: space-between;
     flex-direction: row;
     align-items: baseline;
     flex-wrap: wrap;
-    flex: 1;
+    flex: 1;    
  }
 
  .list-heading-text {
@@ -93,7 +94,7 @@
  }
 
  .list-heading-div {           
-    margin-right: 20px;    
+    margin-right: 20px;       
     
     display: flex;
     justify-content: space-around;
@@ -102,11 +103,34 @@
 
  .search-btn {
     padding-left: 10px;
-    padding-right: 10px;
+    padding-right: 10px;     
  }
 
  .list-add-btn {
-     padding-right: 10px;
+     padding-right: 10px;     
+  }
+
+  #list-names-container-div {       
+    width: 100%;
+    display: flex;
+    flex-direction: column;    
+    align-items: baseline;   
+  }
+
+  ul {       
+    width: 100%;    
+  }
+
+  ul  li{       
+    margin: 10px;
+    padding-bottom: 10px;
+    border-bottom: 0.15rem solid black;    
+    font-size: 20px;
+    list-style: none;       
+  }
+
+  .list-name-checkbox {
+    padding-left: 20px;
   }
   
   /*----- << Items list screen >>----- */ 
@@ -116,6 +140,7 @@
 
   .items-list-heading {    
     padding: 10px;
+    margin-top: 50px;
   }
 
   .back-arrow {
@@ -123,7 +148,7 @@
     flex-basis: 50px;
   }
 
-  .items-list-heading-text {    
+  #items-list-heading-text {    
     flex: 1;
   }
 
@@ -140,7 +165,7 @@
     align-items: center;        
  }
 
- .add-item-tab-content {
+ #add-item-tab-content {
     background-color: white;
 
     display: flex;
@@ -166,7 +191,7 @@
  }
 
  .list-name-field-div {
-    margin: 1rem;
+    margin: 1rem;    
     border-bottom: .15rem solid #0471a6;
  } 
 
