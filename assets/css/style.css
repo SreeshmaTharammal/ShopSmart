@@ -20,6 +20,10 @@
     display: none;   
  }
 
+ .cursor-point {
+    cursor: pointer;
+ }
+
  /* Main container */
  #main-container {
     background-color:antiquewhite;

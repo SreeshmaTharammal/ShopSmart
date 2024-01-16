@@ -25,45 +25,45 @@
 
 <body>
     <!--Main content-->
-    <main id="main-container">
+    <main id="main-container" class="cursor-point">
         
     <!--Header-->
     <header id="logo">
         <h1>Shop<img src="assets/images/shopping_list_logo.png" alt="ShopSmart app logo">Smart</h1>
     </header>
 
-    <!-- Shopping list names section -->
-  <!--  <div id="test">-->
-    <section id="list-names-section">
-       <!-- <div id="list-names-section-div" >-->
-            <!-- Shopping list names section heading - inludes heading text, search and add buttons -->
-            <header class="list-heading" >
-                <h2  class="list-heading-text">Lists</h2>
-                <div class="list-heading-div">
-                    <input class="hide" class="search-field" type="search" id="search-btn" name="search-btn">
-                    <label for="search-btn" class="search-btn" aria-label="Search icon">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </label>
+    <!-- Shopping list names section -->  
+    <section id="list-names-section">       
+        <!-- Shopping list names section heading - inludes heading text, search and add buttons -->
+        <header class="list-heading" >
+            <h2  class="list-heading-text">Lists</h2>
+            <div class="list-heading-div">
+                <input class="hide" class="search-field" type="search" id="search-btn" name="search-btn">
+                <label for="search-btn" class="search-btn" aria-label="Search icon">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </label>
 
-                    <label for="list-add-btn" id="list-add-btn" class="list-add-btn" aria-label="List add button icon">
-                        <i class="fa-solid fa-plus"></i>
-                    </label>
-                </div>
-            </header>
-        
+                <label for="list-add-btn" id="list-add-btn" class="list-add-btn" aria-label="List add button icon">
+                    <i class="fa-solid fa-plus"></i>
+                </label>
+            </div>
+        </header>    
 
-            <div id="list-names-container"></div>
-      <!--  </div>-->
+        <div id="list-names-container-div">
+            <ul id="list-names-container">
+
+            </ul>
+        </div>      
     </section>
-    <!--</div>-->
+    
     <!-- Items list section -->
-    <section class="hide" class="items-list-section">
+    <section id="items-list-section" style="display: none;">
         <header class="items-list-heading">
-            <label for="back-arrow" class="back-arrow" aria-label="Back arrow icon">
-                <i class="fa-solid fa-arrow-left"></i>
-            </label>
+           <!--- <label for="back-arrow" class="back-arrow" aria-label="Back arrow icon"></label>-->
+                <i class="fa-solid fa-arrow-left back-arrow"></i>
+            
 
-            <h2 class="items-list-heading-text">Test</h2>
+            <h2 id="items-list-heading-text">Test</h2>
             
             <label for="delete-all-btn" class="delete-all-btn" aria-label="Delete all items button">
                <!-- <i class="fa-regular fa-circle-trash"></i>-->
