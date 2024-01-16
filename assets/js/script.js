@@ -79,6 +79,17 @@ function saveListName() {
      saveData();
 }
 
+/**
+ * GO back to home screen when click on back arrow on items list screen
+ */
+function backToHome() {
+    // Display home(list names) screen    
+    listNamesSection.style.display='flex';
+
+    // Hide items list screen    
+    itemsListSection.style.display='none';
+}
+
 function saveData() {
     
     localStorage.setItem('data', listNamesContainer.innerHTML);
