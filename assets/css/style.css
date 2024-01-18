@@ -15,13 +15,14 @@
  }
 
  h4 {
+    font-size: 20px;
     margin: 0.5rem;
     color: #0471a6;
  }
 
  /* Apply to hide screen */
  .hide {
-    display: none;   
+    display: none;
  }
 
  .cursor-point {
@@ -30,45 +31,46 @@
 
  /* Main container */
  #main-container {
-    background-color:antiquewhite;
     min-width: 300px;
-    min-height: 400px;
-    max-width: 900px;    
-    position: relative;   
+    max-width: 900px;
+    position: relative;
 
     display: flex;
-    flex-direction: column;  
+    flex-direction: column;
     flex-wrap: wrap;
     align-items: baseline;
-    flex: 1;      
+    flex: 1;
  }
 
  /* Header */
  #logo {
     background-color: #a4c2a8;
-    font-family: 'Lemon', serif;    
+    font-family: 'Lemon', serif;
     text-transform: capitalize;
-    color:#0471a6;    
+    color: #0471a6;
     width: 100%;
     text-align: center;
-    position: fixed;    
-    max-width: 900px;    
-    flex: 1;         
-    z-index: 99;    
-    padding: 0 1rem;         
+    position: fixed;
+    max-width: 900px;
+    flex: 1;
+    z-index: 99;
+    padding: .5rem 1rem;
+
  }
 
-  /* Set logo image width and height */
+ /* Set logo image width and height */
  #logo img {
     width: 50px;
     height: 50px;
+    padding: 0 .25rem;
  }
 
  /*----- << Items list screen >>----- */
-#list-names-section, #items-list-section,
- #add-new-list-section{    
-    margin-top: 57px;
-    width: 100%;        
+ #list-names-section,
+ #items-list-section,
+ #add-new-list-section {
+    margin-top: 70px;
+    width: 100%;
 
     display: flex;
     justify-content: space-between;
@@ -78,114 +80,111 @@
  }
 
  /* Shopping list names section heading - inludes heading text, search and add buttons */
- .list-heading, .items-list-heading,
+ .list-heading,
+ .items-list-heading,
  .add-new-list-heading {
     background-color: #0471a6;
     color: white;
-    width: 100%;  
-    position: fixed;    
-    max-width: 900px;     
+    width: 100%;
+    position: fixed;
+    max-width: 900px;
 
     display: flex;
     justify-content: space-between;
     flex-direction: row;
     align-items: baseline;
     flex-wrap: wrap;
-    flex: 1;    
+    flex: 1;
  }
 
  .list-heading-text {
     /* 'Lists' heading expand and take up available space within the flex container */
-    flex: 1; 
-    padding: 10px;    
+    flex: 1;
+    padding: 10px;
  }
 
- .list-heading-div {           
-    margin-right: 20px;       
-    
+ .list-heading-div {
+    margin-right: 20px;
+
     display: flex;
     justify-content: space-around;
-    flex-basis: 100px;     
- } 
+    flex-basis: 100px;
+ }
 
  .search-btn {
     padding-left: 10px;
-    padding-right: 10px;     
+    padding-right: 10px;
  }
 
  .list-add-btn {
-     padding-right: 10px;     
-  }
+    padding-right: 10px;
+ }
 
-  #list-names-container-div {       
+ #list-names-container-div {
     width: 100%;
     display: flex;
-    flex-direction: column;    
-    align-items: baseline;   
-  }
+    flex-direction: column;
+    align-items: baseline;
+ }
 
-  ul {       
-    width: 100%;    
-  }
+ ul {
+    width: 100%;
+ }
 
-  ul  li{       
+ ul li {
     margin: 10px;
     padding-bottom: 10px;
-    border-bottom: 0.15rem solid lightgrey;    
+    border-bottom: 0.15rem solid lightgrey;
     font-size: 20px;
-    list-style: none;       
-  }
+    list-style: none;
+ }
 
-  #list-name {
-   color: black;
-  }
+ #list-name {
+    color: black;
+ }
 
-  .list-name-checkbox {
+ .list-name-checkbox {
     padding-left: 20px;
-  }
-  
-  /*----- << Items list screen >>----- */ 
-  #items-list-section {
-    margin-top: 0;
-  }
+ }
 
-  .items-list-heading {    
+ /*----- << Items list screen >>----- */
+ .items-list-heading {
     padding: 10px;
-    margin-top: 50px;
-  }
+    /*   margin-top: 70px;*/
+ }
 
-  .back-arrow {
-    padding-left: 10px;       
+ .back-arrow {
+    padding-left: 10px;
     flex-basis: 50px;
-  }
+ }
 
-  #items-list-heading-text {    
+ #items-list-heading-text {
     flex: 1;
-  }
+ }
 
-  .delete-all-btn {
+ .delete-all-btn {
     padding-right: 10px;
-  }
+ }
 
- .add-item-tab {  
-    background-color: white;  
+ .add-item-tab {
+    background-color: white;
     width: 100%;
-    margin-top: 97px;
-    
+    margin-top: 47px;
+
     display: flex;
-    justify-content:left;
-    align-items: center;        
+    justify-content: left;
+    align-items: center;
  }
 
  #add-item-tab-content {
     background-color: white;
 
     display: flex;
-    justify-content:center;
-    align-items: center;       
+    justify-content: center;
+    align-items: center;
 
     margin: auto;
-    border:2px solid darkgray;
+    border: 2px solid darkgray;
     padding: 5px 10px;
  }
 
@@ -193,21 +192,21 @@
     padding-left: 10px;
  }
 
- .add-item-name-container {     
-    margin: 10px;  
-    
+ .add-item-name-container {
+    margin: 10px;
+
     display: flex;
-    justify-content:left;
-    align-items: baseline; 
-    flex:1;
+    justify-content: left;
+    align-items: baseline;
+    flex: 1;
  }
 
  .item-text-field {
-    border: none;  
-    outline: none;     
+    border: none;
+    outline: none;
     height: 2rem;
 
-    flex:1;    
+    flex: 1;
  }
 
  .enter-item-btn {
@@ -220,15 +219,19 @@
  }
 
  #checkbox {
-   margin-right: 20px;
+    margin-right: 20px;
  }
 
  .items-list {
-   border: none;
+    border: none;
  }
 
- /*----- << Add new list screen >>----- */ 
- .new-list-xmark {    
+ /*----- << Add new list screen >>----- */
+ .add-new-list-heading {
+    padding: 8px;
+ }
+
+ .new-list-xmark {
     font-size: 20px;
     padding-left: 15px;
  }
@@ -240,6 +243,7 @@
  .list-name-field-div {
     margin: 2rem 1rem;
     border-bottom: .15rem solid #0471a6;
+    padding-top: 10px;
  }
 
  #list-name-text-field {
@@ -260,7 +264,7 @@
  /* Media query for laptops and larger devices */
  @media screen and (min-width: 900px) {
 
-    /* Align main continer to center of the web page*/
+    /* Align main container to center of the web page*/
     body {
        background-image: url("../images/shopping_trolleys_images.jpg");
        background-color: lavender;
