@@ -135,6 +135,9 @@ function enterItem() {
  */
 function addItemOnClick() {
     const itemName = document.querySelector('.item-text-field').value;
+    if(!itemName) {
+        return;
+    }
     document.querySelector('.item-text-field').value = '';
     document.querySelector('.item-text-field').focus();
 
@@ -146,6 +149,7 @@ function addItemOnClick() {
  * @param {*} itemName 
  */
 function addItemFn(itemName) {
+    const itemsNameContainer = document.getElementById('items-list-container');
     // creating checkbox element
     let checkbox = document.createElement('input');
 
@@ -172,8 +176,11 @@ function addItemFn(itemName) {
     let deleteItemBtn = document.createElement('button');
     deleteItemBtn.setAttribute('id', 'delete-item-btn'); 
     deleteItemBtn.textContent = 'X';
+    deleteItemBtn.addEventListener('click', function() {
+        itemsNameContainer.removeChild(newItem);
+    });
        
-    let itemsNameContainer = document.getElementById('items-list-container');
+    
     // Add list name to list Names Container in home screen
     itemsNameContainer.appendChild(newItem);
     newItem.appendChild(checkbox);
@@ -238,7 +245,12 @@ newListClose.addEventListener('click', function() {
     newListSection.style.display = 'none';
     listNamesSection.style.display = 'flex';
     mainContainer.style.backgroundColor = 'antiquewhite';   
-})
+});
+
+let deleteItem = document.getElementById('delete-item-btn');
+shoppingList.addEventListener('click', showListItems);
+
+
 
 
 

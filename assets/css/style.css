@@ -128,7 +128,10 @@
  }
 
  ul {
-    width: 100%;
+   display: flex;
+   flex-direction: column;
+   width: 100%;
+   flex: 1;
  }
 
  ul li {
@@ -138,8 +141,7 @@
     font-size: 20px;
     list-style: none;
 
-    display: flex;
-   background-color: aquamarine;
+    display: flex;   
  }
 
  #list-name {
@@ -216,12 +218,42 @@
     margin-right: 10px;
  }
 
- #checkbox {
-    margin-right: 20px;
+ .items-list-container-div {   
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
  }
 
- .items-list {
+ #items-list-container {   
+   display: flex;
+   flex-direction: column;   
+   flex: 1;
+ }
+
+ .checkbox {
+    margin-right: 20px;
+    border: 0.15rem solid #0471a6;
+ }
+
+ .items-list {   
+   position:relative;
     border: none;
+   
+    display: flex;    
+    flex: 1;
+ }
+
+ #delete-item-btn {
+   background: transparent;
+   border :none;
+   position: absolute;
+   right:0;
+   top:5px;
+   margin-right: 10px;
+   font-size: 15px; 
+
+
  }
 
  /*----- << Add new list screen >>----- */
