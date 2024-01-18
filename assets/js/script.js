@@ -1,35 +1,33 @@
 //Global scope vars to keep the state between functions
 
 //Sets an empty shoppingList that can be overriden on load by the localstorage
-let shoppingList = {
-    Name: "",
-    Items: []
-};
+let shoppingLists = {};
 
 
 const mainContainer = document.getElementById('main-container');
 const listNamesSection = document.getElementById('list-names-section');
 const itemsListSection = document.getElementById('items-list-section');
- // Get the reference to 'ul' element in the home screen 
-const listNamesContainer = document.getElementById('list-names-container'); 
+// Get the reference to 'ul' element in the home screen 
+const listNamesContainer = document.getElementById('list-names-container');
+// Get the reference to 'ul' element in the items list screen 
+const itemsListContainer = document.getElementById('items-list-container');
+
+showList();
 
 /**
  * Add shopping list name, called when '+' on home(list names) screen clicked.
  * Hide the home screen and display the add list name screen.
  */
-function addListName(){
-    confirm('addListName function');
-    console.log('addListName function');
-    
+function addListName() {
     // Hide list names screen 
-    listNamesSection.style.display='none';
+    listNamesSection.style.display = 'none';
 
     // Display add new list screen
     let newList = document.getElementById('add-new-list-section');
-    newList.style.display='block'; 
-    
+    newList.style.display = 'block';
+
     // Change background to white  
-    mainContainer.style.backgroundColor='white';
+    mainContainer.style.backgroundColor = 'white';
 
     // Set focus
     let textField = document.getElementById('list-name-text-field');
@@ -41,42 +39,43 @@ function addListName(){
  * 
  * @returns 
  */
-function saveListName() { 
+function saveListName() {
     // Get the list name entered
     const listName = document.getElementById('list-name-text-field').value;
-       
+    let newList = document.getElementById('add-new-list-section');
 
-    if(listName === '') {
+
+    if (listName === '') {
         alert('Enter a list name');
+        let message = document.querySelector('.message');
+        message.style.display = 'block';
+
+        mainContainer.style.backgroundColor = 'rgba(255, 99, 71, 0.2)';
         return;
     }
-    // Update Shopping list dictionary
-    shoppingList.Name = listName;
-    console.log(`Shopping List: ${shoppingList.Name} - ${shoppingList.Items}`)
 
     // Update items list screen heading text
     document.getElementById('items-list-heading-text').textContent = listName;
 
     // Display items list screen    
-    itemsListSection.style.display='flex';
+    itemsListSection.style.display = 'flex';
 
-     // Hide add new list screen
-     let newList = document.getElementById('add-new-list-section');
-     newList.style.display='none'; 
+    // Hide add new list screen     
+    newList.style.display = 'none';
 
-      // Change background back to antiquewhite    
-     mainContainer.style.backgroundColor='antiquewhite';           
-  
-     // Create list
-     let newListName = document.createElement('li');
-     newListName.innerHTML = listName;     
-     // Add list name to list Names Container in home screen
-     listNamesContainer.appendChild(newListName);     
+    // Change background back to antiquewhite    
+    mainContainer.style.backgroundColor = 'antiquewhite';
+
+    // Create list
+    let newListName = document.createElement('li');
+    newListName.innerHTML = listName;
+    // Add list name to list Names Container in home screen
+    listNamesContainer.appendChild(newListName);
 
     // Clear list name screen text field
-     newList.children[1].children[1].value = '';        
+    newList.children[1].children[1].value = '';
 
-     saveData();
+    saveData();
 }
 
 /**
@@ -84,14 +83,117 @@ function saveListName() {
  */
 function backToHome() {
     // Display home(list names) screen    
-    listNamesSection.style.display='flex';
+    listNamesSection.style.display = 'flex';
 
     // Hide items list screen    
-    itemsListSection.style.display='none';
+    itemsListSection.style.display = 'none';
+
+    const items = [];
+    const itemsListContainer = document.getElementById('items-list-container');
+    const itemsList = itemsListContainer.getElementsByTagName('li');
+
+    // iterate items list and add to the array
+     for (const item of itemsList) {
+         items.push(item.textContent);
+     }     
+
+    const currentListName = document.getElementById('items-list-heading-text').textContent;
+
+    // Add the items array to curresponding list name 
+    shoppingLists[currentListName] = items;
+
+    itemsListContainer.innerHTML = '';
+}
+
+/**
+ * Shows add item text field, called when click on add item secton om items list screen
+ */
+function enterItem() {
+    // Hide add item section
+    const addItemTabContent = document.getElementById('add-item-tab-content');
+    addItemTabContent.style.display = 'none';
+
+    // Display text field  and add button below items list screen heading
+    const addItemNameDiv = document.querySelector('.add-item-name-container');
+    addItemNameDiv.style.display = 'flex';
+
+    // Set focus
+    let textField = document.querySelector('.item-text-field');
+    textField.focus();
+}
+
+/**
+ * Call 'addItemFn' function, called when click on add button on items list screen
+ */
+function addItemOnClick() {
+    const itemName = document.querySelector('.item-text-field').value;
+    document.querySelector('.item-text-field').value = '';
+    document.querySelector('.item-text-field').focus();
+
+    addItemFn(itemName);
+}
+
+/**
+ * Add items to the items list screen.
+ * @param {*} itemName 
+ */
+function addItemFn(itemName) {
+    // creating checkbox element
+    let checkbox = document.createElement('input');
+
+    // Assigning the attributes to created checkbox
+    checkbox.type = "checkbox";
+    checkbox.name = "name";
+    checkbox.value = "value";
+    // checkbox.id = "checkbox";
+    checkbox.setAttribute('id', 'checkbox');
+
+    // creating label for checkbox
+    let label = document.createElement('label');
+
+    // assigning attributes for the created label tag 
+    label.htmlFor = "checkbox";
+
+    // appending the created text to the created label tag     
+    label.appendChild(document.createTextNode(itemName));
+
+    let newitemName = document.createElement('li');
+    newitemName.setAttribute('class', 'items-list')
+    //  newitemName.innerHTML = checkbox;    
+    let itemsNameContainer = document.getElementById('items-list-container');
+    // Add list name to list Names Container in home screen
+    itemsNameContainer.appendChild(newitemName);
+    newitemName.appendChild(checkbox);
+    newitemName.appendChild(label);
+}
+
+/**
+ * Go to items list screen when click on list name on home screen.
+ * Update curresponding items from shoppingLists dictionary.
+ * @param {*} event 
+ * @returns 
+ */
+function showListItems(event) {
+    // Hide home(list names) screen    
+    listNamesSection.style.display = 'none';
+
+    // Display items list screen    
+    itemsListSection.style.display = 'flex';
+
+    const currentListName = event.target.textContent;
+
+    // Update items list screen heading text
+    document.getElementById('items-list-heading-text').textContent = currentListName;
+    if (!shoppingLists.hasOwnProperty(currentListName)) {
+        return;
+    }
+
+    for (const itemName of shoppingLists[currentListName]) {
+        addItemFn(itemName);
+    }
 }
 
 function saveData() {
-    
     localStorage.setItem('data', listNamesContainer.innerHTML);
 }
 
@@ -108,7 +210,16 @@ save.addEventListener('click', saveListName);
 let backHome = document.querySelector('.back-arrow');
 backHome.addEventListener('click', backToHome);
 
-showList();
+let addItemcontent = document.getElementById('add-item-tab-content');
+addItemcontent.addEventListener('click', enterItem);
+
+let addItem = document.querySelector('.enter-item-btn');
+addItem.addEventListener('click', addItemOnClick);
+
+let shoppingList = document.getElementById('list-names-container');
+shoppingList.addEventListener('click', showListItems);
+
+
 
 
 

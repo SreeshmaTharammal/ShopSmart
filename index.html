@@ -60,7 +60,7 @@
     <section id="items-list-section" style="display: none;">
         <header class="items-list-heading">
            <!--- <label for="back-arrow" class="back-arrow" aria-label="Back arrow icon"></label>-->
-                <i class="fa-solid fa-arrow-left back-arrow"></i>
+                <i class="fa-solid fa-arrow-left back-arrow" aria-label="Back arrow icon"></i>
             
 
             <h2 id="items-list-heading-text">Test</h2>
@@ -77,8 +77,17 @@
                 </label>
                 <h3 class="add-item-text">Add Item</h3>
             </div>
+            <div class="add-item-name-container" style="display: none;">
+                <input type="text" class="item-text-field" name="item-text-field">
+                <button class="enter-item-btn">Add</button>
+            </div>
+            
         </div>
-        <div class="items-list-container"></div>
+        <div class="items-list-container-div">
+            <ul id="items-list-container">
+
+            </ul>
+        </div>
     </section>
 
     <!-- Add new list section -->
@@ -96,6 +105,10 @@
         <div class="list-name-field-div">
             <h4>List Name</h4>
             <input id="list-name-text-field" type="text" name="list-name-text-field">            
+        </div>
+        <div class="message-container hide">
+            <p>Enter a list name</p>
+            <button class="">OK</button>
         </div>
     </section>
 

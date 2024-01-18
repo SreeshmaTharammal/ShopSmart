@@ -124,9 +124,13 @@
   ul  li{       
     margin: 10px;
     padding-bottom: 10px;
-    border-bottom: 0.15rem solid black;    
+    border-bottom: 0.15rem solid lightgrey;    
     font-size: 20px;
     list-style: none;       
+  }
+
+  #list-name {
+   color: black;
   }
 
   .list-name-checkbox {
@@ -161,7 +165,7 @@
     width: 100%;
     
     display: flex;
-    justify-content:center;
+    justify-content:left;
     align-items: center;        
  }
 
@@ -170,14 +174,49 @@
 
     display: flex;
     justify-content:center;
-    align-items: center;   
+    align-items: center;       
 
+    margin: auto;
     border:2px solid darkgray;
     padding: 5px 10px;
  }
 
  .add-item-text {
     padding-left: 10px;
+ }
+
+ .add-item-name-container {     
+    margin: 10px;  
+    
+    display: flex;
+    justify-content:left;
+    align-items: baseline; 
+    flex:1;
+ }
+
+ .item-text-field {
+    border: none;  
+    outline: none;     
+    height: 2rem;
+    
+    flex:1;    
+ }
+
+ .enter-item-btn {
+    background-color: white;
+    border: 0.15rem solid #0471a6;
+    border-radius: 1.5rem;
+    width: 90px;
+    font-size: large;
+    margin-right: 10px;
+ }
+
+ #checkbox {
+   margin-right: 20px;
+ }
+
+ .items-list {
+   border: none;
  }
 
  /*----- << Add new list screen >>----- */ 
@@ -202,6 +241,12 @@
     height: 2rem
  }
 
+ .message-container {
+    background-color: aqua;
+    position: absolute;
+    margin-left: 60px;   
+ }
+
  /* Media query for laptops and larger devices */
 @media screen and (min-width: 900px) {
     /* Align main continer to center of the web page*/
@@ -219,6 +264,7 @@
 
     #main-container {
         border-radius: 20px;
+        overflow-y: auto;
     }
 
     #logo {
