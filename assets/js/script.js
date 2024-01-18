@@ -154,25 +154,31 @@ function addItemFn(itemName) {
     checkbox.name = "name";
     checkbox.value = "value";
     // checkbox.id = "checkbox";
-    checkbox.setAttribute('id', 'checkbox');
+    checkbox.setAttribute('class', 'checkbox');
+    checkbox.setAttribute('id', `checkbox-${itemName}`);
 
     // creating label for checkbox
     let label = document.createElement('label');
 
     // assigning attributes for the created label tag 
-    label.htmlFor = "checkbox";
+    label.htmlFor = `checkbox-${itemName}`;
 
     // appending the created text to the created label tag     
     label.appendChild(document.createTextNode(itemName));
 
-    let newitemName = document.createElement('li');
-    newitemName.setAttribute('class', 'items-list')
-    //  newitemName.innerHTML = checkbox;    
+    let newItem = document.createElement('li');
+    newItem.setAttribute('class', 'items-list')
+
+    let deleteItemBtn = document.createElement('button');
+    deleteItemBtn.setAttribute('id', 'delete-item-btn'); 
+    deleteItemBtn.textContent = 'X';
+       
     let itemsNameContainer = document.getElementById('items-list-container');
     // Add list name to list Names Container in home screen
-    itemsNameContainer.appendChild(newitemName);
-    newitemName.appendChild(checkbox);
-    newitemName.appendChild(label);
+    itemsNameContainer.appendChild(newItem);
+    newItem.appendChild(checkbox);
+    newItem.appendChild(label);
+    newItem.appendChild(deleteItemBtn);
 }
 
 /**

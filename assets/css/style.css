@@ -137,20 +137,18 @@
     border-bottom: 0.15rem solid lightgrey;
     font-size: 20px;
     list-style: none;
+
+    display: flex;
+   background-color: aquamarine;
  }
 
  #list-name {
     color: black;
  }
 
- .list-name-checkbox {
-    padding-left: 20px;
- }
-
  /*----- << Items list screen >>----- */
  .items-list-heading {
-    padding: 10px;
-    /*   margin-top: 70px;*/
+    padding: 10px;    
  }
 
  .back-arrow {
