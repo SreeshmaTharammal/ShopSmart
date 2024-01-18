@@ -202,7 +202,7 @@
     border: none;  
     outline: none;     
     height: 2rem;
-        
+
     flex:1;    
  }
 
@@ -263,12 +263,11 @@
         align-items: center;
 
         /* Sets the height of an element to 50% of the viewport height */
-        height: 50vh;       
+        height: fit-content;       
     }
 
     #main-container {
-        border-radius: 20px;
-        overflow-y: auto;
+        border-radius: 20px;        
     }
 
     #logo {
