@@ -7,6 +7,7 @@ let shoppingLists = {};
 const mainContainer = document.getElementById('main-container');
 const listNamesSection = document.getElementById('list-names-section');
 const itemsListSection = document.getElementById('items-list-section');
+const newListSection = document.getElementById('add-new-list-section');
 // Get the reference to 'ul' element in the home screen 
 const listNamesContainer = document.getElementById('list-names-container');
 // Get the reference to 'ul' element in the items list screen 
@@ -218,6 +219,15 @@ addItem.addEventListener('click', addItemOnClick);
 
 let shoppingList = document.getElementById('list-names-container');
 shoppingList.addEventListener('click', showListItems);
+
+let newListClose = document.querySelector('.new-list-xmark');
+newListClose.addEventListener('click', function() {
+    newListSection.style.display = 'none';
+    listNamesSection.style.display = 'flex';
+    mainContainer.style.backgroundColor = 'antiquewhite';
+})
+
+
 
 
 

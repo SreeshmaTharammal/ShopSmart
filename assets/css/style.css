@@ -80,7 +80,7 @@
     color: white;
     width: 100%;  
     position: fixed;    
-    max-width: 900px; 
+    max-width: 900px;     
 
     display: flex;
     justify-content: space-between;
@@ -234,8 +234,8 @@
  }
 
  .list-name-field-div {
-    margin: 1rem;    
-    border-bottom: .15rem solid #0471a6;
+    margin: 2rem 1rem;    
+    border-bottom: .15rem solid #0471a6;   
  } 
 
  #list-name-text-field {       
@@ -261,8 +261,7 @@
         display: flex;
         justify-content:center;
         align-items: center;
-
-        /* Sets the height of an element to 50% of the viewport height */
+        
         height: fit-content;       
     }
 
