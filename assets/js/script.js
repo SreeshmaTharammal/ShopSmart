@@ -28,7 +28,7 @@ function addListName() {
     newList.style.display = 'block';
 
     // Change background to white  
-    mainContainer.style.backgroundColor = 'white';
+    mainContainer.style.backgroundColor = 'white';  
 
     // Set focus
     let textField = document.getElementById('list-name-text-field');
@@ -46,12 +46,17 @@ function saveListName() {
     let newList = document.getElementById('add-new-list-section');
 
 
-    if (listName === '') {
-        alert('Enter a list name');
-        let message = document.querySelector('.message');
-        message.style.display = 'block';
+    if (listName === '') {        
+        let messageContainer = document.querySelector('.message-container');
+        const messageDiv = document.createElement("div");
+        messageContainer.style.display = 'block';  
+        messageDiv.innerText = 'Enter a list name';
+        messageContainer.appendChild(messageDiv);
 
-        mainContainer.style.backgroundColor = 'rgba(255, 99, 71, 0.2)';
+         // Remove the alert after 2 seconds
+        setTimeout(() => {
+            messageContainer.removeChild(messageDiv);
+      }, 2000);     
         return;
     }
 
@@ -224,7 +229,7 @@ let newListClose = document.querySelector('.new-list-xmark');
 newListClose.addEventListener('click', function() {
     newListSection.style.display = 'none';
     listNamesSection.style.display = 'flex';
-    mainContainer.style.backgroundColor = 'antiquewhite';
+    mainContainer.style.backgroundColor = 'antiquewhite';   
 })
 
 
