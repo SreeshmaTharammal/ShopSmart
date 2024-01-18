@@ -269,6 +269,7 @@
     body {
        background-image: url("../images/shopping_trolleys_images.jpg");
        background-color: lavender;
+       background-attachment: fixed;
 
        display: flex;
        justify-content: center;
