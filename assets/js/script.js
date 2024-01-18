@@ -12,6 +12,7 @@ const newListSection = document.getElementById('add-new-list-section');
 const listNamesContainer = document.getElementById('list-names-container');
 // Get the reference to 'ul' element in the items list screen 
 const itemsListContainer = document.getElementById('items-list-container');
+const addItemTabContent = document.getElementById('add-item-tab-content');
 
 showList();
 
@@ -28,7 +29,7 @@ function addListName() {
     newList.style.display = 'block';
 
     // Change background to white  
-    mainContainer.style.backgroundColor = 'white';  
+    mainContainer.style.backgroundColor = 'white';
 
     // Set focus
     let textField = document.getElementById('list-name-text-field');
@@ -45,19 +46,19 @@ function saveListName() {
     const listName = document.getElementById('list-name-text-field').value;
     let newList = document.getElementById('add-new-list-section');
 
-    if (listName === '') {        
+    if (listName === '') {
         let messageContainer = document.querySelector('.message-container');
         const messageDiv = document.createElement("div");
-        messageContainer.style.display = 'block';  
+        messageContainer.style.display = 'block';
         messageDiv.innerText = 'Enter a list name';
         messageContainer.appendChild(messageDiv);
 
-         // Remove the alert after 2 seconds
+        // Remove the alert after 2 seconds
         setTimeout(() => {
             messageContainer.removeChild(messageDiv);
             messageContainer.style.display = 'none';
-      }, 2000);  
-        
+        }, 2000);
+
         return;
     }
 
@@ -99,17 +100,22 @@ function backToHome() {
     const items = [];
     const itemsListContainer = document.getElementById('items-list-container');
     const itemsList = itemsListContainer.getElementsByTagName('li');
+    const currentListName = document.getElementById('items-list-heading-text').textContent;
+    if (!itemsList) {
+        shoppingLists[currentListName] = '';
+        return;
+    }
 
     // iterate items list and add to the array
-     for (const item of itemsList) {
-         items.push(item.textContent);
-     }     
-
-    const currentListName = document.getElementById('items-list-heading-text').textContent;
+    for (let item of itemsList) {
+        item = item.textContent.slice(0, -1);
+        items.push(item);
+    }
 
     // Add the items array to curresponding list name 
     shoppingLists[currentListName] = items;
 
+    // Clear items list screen
     itemsListContainer.innerHTML = '';
 }
 
@@ -117,8 +123,7 @@ function backToHome() {
  * Shows add item text field, called when click on add item secton om items list screen
  */
 function enterItem() {
-    // Hide add item section
-    const addItemTabContent = document.getElementById('add-item-tab-content');
+    // Hide add item section    
     addItemTabContent.style.display = 'none';
 
     // Display text field  and add button below items list screen heading
@@ -134,8 +139,11 @@ function enterItem() {
  * Call 'addItemFn' function, called when click on add button on items list screen
  */
 function addItemOnClick() {
+    addItemTabContent.style.display = 'flex';
+    const addItemNameContainer = document.querySelector('.add-item-name-container');
+    addItemNameContainer.style.display = 'none';
     const itemName = document.querySelector('.item-text-field').value;
-    if(!itemName) {
+    if (!itemName) {
         return;
     }
     document.querySelector('.item-text-field').value = '';
@@ -174,13 +182,13 @@ function addItemFn(itemName) {
     newItem.setAttribute('class', 'items-list')
 
     let deleteItemBtn = document.createElement('button');
-    deleteItemBtn.setAttribute('id', 'delete-item-btn'); 
+    deleteItemBtn.setAttribute('id', 'delete-item-btn');
     deleteItemBtn.textContent = 'X';
-    deleteItemBtn.addEventListener('click', function() {
+    deleteItemBtn.addEventListener('click', function () {
         itemsNameContainer.removeChild(newItem);
     });
-       
-    
+
+
     // Add list name to list Names Container in home screen
     itemsNameContainer.appendChild(newItem);
     newItem.appendChild(checkbox);
@@ -241,14 +249,20 @@ let shoppingList = document.getElementById('list-names-container');
 shoppingList.addEventListener('click', showListItems);
 
 let newListClose = document.querySelector('.new-list-xmark');
-newListClose.addEventListener('click', function() {
+newListClose.addEventListener('click', function () {
     newListSection.style.display = 'none';
     listNamesSection.style.display = 'flex';
-    mainContainer.style.backgroundColor = 'antiquewhite';   
+    mainContainer.style.backgroundColor = 'antiquewhite';
 });
 
-let deleteItem = document.getElementById('delete-item-btn');
-shoppingList.addEventListener('click', showListItems);
+const itemsListContainerDiv = document.querySelector('.items-list-container-div');
+const deleteAllItems = document.querySelector('.delete-all-btn');
+deleteAllItems.addEventListener('onmouseover', function () {
+    deleteAllItems.title = 'Delete all items';
+});
+deleteAllItems.addEventListener('click', function () {
+    itemsListContainer.remove();
+});
 
 
 

@@ -25,87 +25,79 @@
 
 <body>
     <!--Main content-->
-    <main id="main-container" class="cursor-point">
-        
-    <!--Header-->
-    <header id="logo">
-        <h1>Shop<img src="assets/images/shopping_list_logo.png" alt="ShopSmart app logo">Smart</h1>
-    </header>
+    <main id="main-container">
 
-    <!-- Shopping list names section -->  
-    <section id="list-names-section">       
-        <!-- Shopping list names section heading - inludes heading text, search and add buttons -->
-        <header class="list-heading" >
-            <h2  class="list-heading-text">Lists</h2>
-            <div class="list-heading-div">
-                <input class="hide" class="search-field" type="search" id="search-btn" name="search-btn">
-                <label for="search-btn" class="search-btn" aria-label="Search icon">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </label>
-
-                <label for="list-add-btn" id="list-add-btn" class="list-add-btn" aria-label="List add button icon">
-                    <i class="fa-solid fa-plus"></i>
-                </label>
-            </div>
-        </header>    
-
-        <div id="list-names-container-div">
-            <ul id="list-names-container">
-
-            </ul>
-        </div>      
-    </section>
-    
-    <!-- Items list section -->
-    <section id="items-list-section" style="display: none;">
-        <header class="items-list-heading">
-           <!--- <label for="back-arrow" class="back-arrow" aria-label="Back arrow icon"></label>-->
-                <i class="fa-solid fa-arrow-left back-arrow" aria-label="Back arrow icon"></i>
-            
-
-            <h2 id="items-list-heading-text">Test</h2>
-            
-            <label for="delete-all-btn" class="delete-all-btn" aria-label="Delete all items button">
-               <!-- <i class="fa-regular fa-circle-trash"></i>-->
-               <i class="fa-solid fa-magnifying-glass"></i>
-            </label>           
-        </header>
-        <div class="add-item-tab">
-            <div id="add-item-tab-content">
-                <label for="add-item-btn" class="add-item-btn" aria-label="Item add button icon">
-                    <i class="fa-solid fa-plus"></i>
-                </label>
-                <h3 class="add-item-text">Add Item</h3>
-            </div>
-            <div class="add-item-name-container" style="display: none;">
-                <input type="text" class="item-text-field" name="item-text-field">
-                <button class="enter-item-btn">Add</button>
-            </div>
-            
-        </div>
-        <div class="items-list-container-div">
-            <ul id="items-list-container">
-
-            </ul>
-        </div>
-    </section>
-
-    <!-- Add new list section -->
-    <section id="add-new-list-section" style="display: none;">
-        <header class="add-new-list-heading">          
-            <i class="fa-solid fa-xmark new-list-xmark" aria-label="New list screen xmark"></i>  
-            <h2 class="add-new-list-heading-text">NewList</h2>                
-            <h3 id="new-list-save">SAVE</h3>                      
+        <!--Header-->
+        <header id="logo">
+            <h1>Shop<img src="assets/images/shopping_list_logo.png" alt="ShopSmart app logo">Smart</h1>
         </header>
 
-        <div class="list-name-field-div">
-            <h4>List Name</h4>
-            <input id="list-name-text-field" type="text" name="list-name-text-field">            
-        </div>
-        <div class="message-container" style="display: none;">            
-        </div>
-    </section>
+        <!-- Shopping list names section -->
+        <section id="list-names-section">
+            <!-- Shopping list names section heading - inludes heading text, search and add buttons -->
+            <header class="list-heading">
+                <h2 class="list-heading-text">Lists</h2>
+                <div class="list-heading-div">
+                    <input class="hide" class="search-field" type="search" id="search-btn" name="search-btn">
+                    <label for="search-btn" class="search-btn" aria-label="Search icon">
+                        <i class="fa-solid fa-magnifying-glass cursor-point"></i>
+                    </label>
 
+                    <label for="list-add-btn" id="list-add-btn" class="list-add-btn" aria-label="List add button icon">
+                        <i class="fa-solid fa-plus cursor-point"></i>
+                    </label>
+                </div>
+            </header>
+
+            <div id="list-names-container-div">
+                <ul id="list-names-container">
+
+                </ul>
+            </div>
+        </section>
+
+        <!-- Items list section -->
+        <section id="items-list-section" style="display: none;">
+            <header class="items-list-heading">
+                <i class="fa-solid fa-arrow-left back-arrow cursor-point" aria-label="Back arrow icon"></i>
+                <h2 id="items-list-heading-text">Test</h2>
+                <i class="fa-solid fa-trash-can delete-all-btn"></i>
+            </header>
+            <div class="add-item-tab">
+                <div id="add-item-tab-content">
+                    <label for="add-item-btn" class="add-item-btn" aria-label="Item add button icon">
+                        <i class="fa-solid fa-plus"></i>
+                    </label>
+                    <h3 class="add-item-text ">Add Item</h3>
+                </div>
+                <div class="add-item-name-container" style="display: none;">
+                    <input type="text" class="item-text-field" name="item-text-field">
+                    <button class="enter-item-btn">Add</button>
+                </div>
+
+            </div>
+            <div class="items-list-container-div">
+                <ul id="items-list-container">
+
+                </ul>
+            </div>
+        </section>
+
+        <!-- Add new list section -->
+        <section id="add-new-list-section" style="display: none;">
+            <header class="add-new-list-heading">
+                <i class="fa-solid fa-xmark new-list-xmark" aria-label="New list screen xmark"></i>
+                <h2 class="add-new-list-heading-text">NewList</h2>
+                <h3 id="new-list-save">SAVE</h3>
+            </header>
+
+            <div class="list-name-field-div">
+                <h4>List Name</h4>
+                <input id="list-name-text-field" type="text" name="list-name-text-field">
+            </div>
+            <div class="message-container" style="display: none;">
+            </div>
+        </section>
     </main>
 
     <!--Footer-->
