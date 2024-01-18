@@ -45,7 +45,6 @@ function saveListName() {
     const listName = document.getElementById('list-name-text-field').value;
     let newList = document.getElementById('add-new-list-section');
 
-
     if (listName === '') {        
         let messageContainer = document.querySelector('.message-container');
         const messageDiv = document.createElement("div");
@@ -56,9 +55,12 @@ function saveListName() {
          // Remove the alert after 2 seconds
         setTimeout(() => {
             messageContainer.removeChild(messageDiv);
-      }, 2000);     
+            messageContainer.style.display = 'none';
+      }, 2000);  
+        
         return;
     }
+
 
     // Update items list screen heading text
     document.getElementById('items-list-heading-text').textContent = listName;
