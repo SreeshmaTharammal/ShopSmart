@@ -39,12 +39,9 @@
     cursor: default;
     
     display: flex;
-    flex-direction: column;
-    /*flex-wrap: wrap;*/
-    align-items: baseline;
-    flex: 1;
-  
-   background-color: red;
+    flex-direction: column;    
+    align-items: baseline;    
+    flex: 1;   
  }
 
  /* Header */
@@ -314,19 +311,20 @@
  /*----- << Footer >>----- */
  footer {
    position: fixed;
-   background-color: lightblue;
+   background-color: #a4c2a8;
    width: 100%;
-   max-width: 50rem;
+   max-width: 900px;
    top: 95%;   
+   height: 3rem;
 
    display: flex;
    justify-content: space-evenly;
    align-items: center;
  }
 
- footer p {   
+ footer p {     
    margin-bottom: 0;
-   margin-left: 2%;
+   margin-left: 2%;   
    font-size: 100%;
    width: 100%;   
 }
@@ -334,10 +332,8 @@
 footer a {      
    font-size: 1.6rem;   
    padding-right: 0.5rem;
-   align-self: flex-end;
-   color: var(--navy-blue);   
+   align-self: center;     
 }
-
 
  /* Media query for laptops and larger devices */
  @media screen and (min-width: 900px) {
