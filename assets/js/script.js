@@ -88,8 +88,7 @@ function saveListName() {
     console.log("listName: " + listName);
     // Create a text node
     let listNameNode = document.createTextNode(listName);
-
-    // Add a click event to the text node
+    
     newListName.addEventListener("click", function (event) {
         if(event.target === newListName) {
         // Prevents the event from bubbling up the DOM tree
@@ -281,8 +280,32 @@ window.onload = function() {
 
     for (const list in shoppingLists) {
         const listNameElement = document.createElement('li');
-        listNameElement.textContent = list;
+        listNameElement.textContent = list;        
         listNamesContainer.appendChild(listNameElement);
+
+        listNameElement.addEventListener("click", function (event) {
+            if(event.target === listNameElement) {
+            // Prevents the event from bubbling up the DOM tree
+                event.stopPropagation();
+                console.log("Text clicked: " + this.textContent);
+                showListItems(event);
+            }
+        });
+
+        let deleteListBtn = document.createElement('button');
+        deleteListBtn.setAttribute('id', 'delete-list-btn');
+        deleteListBtn.textContent = 'X';
+        listNameElement.appendChild(deleteListBtn);
+
+         // Add a click event to the button
+        deleteListBtn.addEventListener("click", function (event) {
+        // Prevents the event from bubbling up the DOM tree
+        event.stopPropagation();         
+        listNamesContainer.removeChild(listNameElement); 
+        shoppingLists = Array.from(shoppingLists);
+        shoppingLists.pop(listNameElement.textContent);
+    });
+
     }
 }
 
