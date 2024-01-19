@@ -36,16 +36,16 @@ function addListName() {
 
 function showMessage(message) {
     let messageContainer = document.querySelector('.message-container');
-        const messageDiv = document.createElement("div");
-        messageContainer.style.display = 'block';
-        messageDiv.innerText = message;
-        messageContainer.appendChild(messageDiv);
+    const messageDiv = document.createElement("div");
+    messageContainer.style.display = 'block';
+    messageDiv.innerText = message;
+    messageContainer.appendChild(messageDiv);
 
-        // Remove the alert after 2 seconds
-        setTimeout(() => {
-            messageContainer.removeChild(messageDiv);
-            messageContainer.style.display = 'none';
-        }, 2000);
+    // Remove the alert after 2 seconds
+    setTimeout(() => {
+        messageContainer.removeChild(messageDiv);
+        messageContainer.style.display = 'none';
+    }, 2000);
 }
 
 /**
@@ -63,11 +63,10 @@ function saveListName() {
         return;
     }
 
-    if(shoppingLists.hasOwnProperty(listName)) {
+    if (shoppingLists.hasOwnProperty(listName)) {
         showMessage('List name already exist!');
         return;
     }
-
 
     // Update items list screen heading text
     document.getElementById('items-list-heading-text').textContent = listName;
@@ -83,19 +82,46 @@ function saveListName() {
 
     // Create list
     let newListName = document.createElement('li');
-    newListName.innerHTML = listName;
+   // newListName.innerHTML = listName;
+    newListName.setAttribute('id', 'list-name');
+
+    console.log("listName: " + listName);
+    // Create a text node
+    let listNameNode = document.createTextNode(listName);
+
+    // Add a click event to the text node
+    newListName.addEventListener("click", function (event) {
+        if(event.target === newListName) {
+        // Prevents the event from bubbling up the DOM tree
+            event.stopPropagation();
+            console.log("Text clicked: " + this.textContent);
+            showListItems(event);
+        }
+    });
+
+    // Append the text node to the list item
+    newListName.appendChild(listNameNode);
+
     // Add list name to list Names Container in home screen
     listNamesContainer.appendChild(newListName);
 
     let deleteListBtn = document.createElement('button');
     deleteListBtn.setAttribute('id', 'delete-list-btn');
     deleteListBtn.textContent = 'X';
-    deleteListBtn.addEventListener('click', function () {
-        listNamesContainer.removeChild(newListName);
-    });
 
-    // Clear list name screen text field
-    newList.children[1].children[1].value = '';    
+    // Add a click event to the button
+    deleteListBtn.addEventListener("click", function (event) {
+        // Prevents the event from bubbling up the DOM tree
+        event.stopPropagation();         
+        listNamesContainer.removeChild(newListName); 
+        shoppingLists = Array.from(shoppingLists);
+        shoppingLists.pop(listNameNode);
+    });
+    
+    newListName.appendChild(deleteListBtn);
+
+    // Clear new list name screen text field
+    newList.children[1].children[1].value = '';
 }
 
 /**
@@ -116,7 +142,7 @@ function backToHome() {
         return;
     }
     const itemsList = itemsListContainer.getElementsByTagName('li');
-    
+
     if (!itemsList) {
         shoppingLists[currentListName] = '';
         return;
@@ -131,8 +157,10 @@ function backToHome() {
     // Add the items array to curresponding list name 
     shoppingLists[currentListName] = items;
 
+    saveToLocal();
+
     // Clear items list screen
-    itemsListContainer.innerHTML = '';    
+    itemsListContainer.innerHTML = '';
 }
 
 /**
@@ -225,7 +253,8 @@ function showListItems(event) {
     // Display items list screen    
     itemsListSection.style.display = 'flex';
 
-    const currentListName = event.target.textContent;
+    let currentListName = event.target.textContent; 
+    currentListName = currentListName.slice(0, -1);
 
     // Update items list screen heading text
     document.getElementById('items-list-heading-text').textContent = currentListName;
@@ -238,17 +267,19 @@ function showListItems(event) {
     }
 }
 
-window.onbeforeunload = function() {
+function saveToLocal() {
     localStorage.setItem('data', JSON.stringify(shoppingLists));
+    return 1;
 };
 
 window.onload = function() {
     shoppingLists = JSON.parse(localStorage.getItem('data'));
-    if(Object.keys(shoppingLists).length === 0) {
+    console.log(`shoppingLists length: ${Object.keys(shoppingLists).length}`)
+    if (Object.keys(shoppingLists).length === 0) {        
         return;
     }
 
-    for(const list in shoppingLists) {
+    for (const list in shoppingLists) {
         const listNameElement = document.createElement('li');
         listNameElement.textContent = list;
         listNamesContainer.appendChild(listNameElement);
@@ -270,17 +301,14 @@ addItemcontent.addEventListener('click', enterItem);
 let addItem = document.querySelector('.enter-item-btn');
 addItem.addEventListener('click', addItemOnClick);
 
-let shoppingList = document.getElementById('list-names-container');
-shoppingList.addEventListener('click', showListItems);
-
 let newListClose = document.querySelector('.new-list-xmark');
 newListClose.addEventListener('click', function () {
     newListSection.style.display = 'none';
     listNamesSection.style.display = 'flex';
     mainContainer.style.backgroundColor = 'antiquewhite';
     let newList = document.getElementById('add-new-list-section');
-     // Clear list name screen text field
-     newList.children[1].children[1].value = '';
+    // Clear list name screen text field
+    newList.children[1].children[1].value = '';
 });
 
 const itemsListContainerDiv = document.querySelector('.items-list-container-div');
