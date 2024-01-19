@@ -12,6 +12,8 @@
 
  body {
     background-color: antiquewhite;
+    display: flex;
+    flex-direction: row;
  }
 
  h4 {
@@ -35,12 +37,14 @@
     max-width: 900px;
     position: relative;
     cursor: default;
-
+    
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
+    /*flex-wrap: wrap;*/
     align-items: baseline;
     flex: 1;
+  
+   background-color: red;
  }
 
  /* Header */
@@ -129,10 +133,13 @@
  }
 
  ul {
+   margin-top: 45px;
+
    display: flex;
    flex-direction: column;
    width: 100%;
    flex: 1;
+
  }
 
  ul li {
@@ -141,12 +148,23 @@
     border-bottom: 0.15rem solid lightgrey;
     font-size: 20px;
     list-style: none;
+    position: relative;    
 
     display: flex;   
  }
 
  #list-name {
     color: black;
+ }
+
+ #delete-list-btn {
+   background: transparent;
+   border :none;
+   position: absolute;
+   right:0;
+   top:5px;
+   margin-right: 10px;
+   font-size: 15px;
  }
 
  /*----- << Items list screen >>----- */
@@ -253,8 +271,6 @@
    top:5px;
    margin-right: 10px;
    font-size: 15px; 
-
-
  }
 
  /*----- << Add new list screen >>----- */
@@ -295,6 +311,34 @@
     z-index: 9999;
  }
 
+ /*----- << Footer >>----- */
+ footer {
+   position: fixed;
+   background-color: lightblue;
+   width: 100%;
+   max-width: 50rem;
+   top: 95%;   
+
+   display: flex;
+   justify-content: space-evenly;
+   align-items: center;
+ }
+
+ footer p {   
+   margin-bottom: 0;
+   margin-left: 2%;
+   font-size: 100%;
+   width: 100%;   
+}
+
+footer a {      
+   font-size: 1.6rem;   
+   padding-right: 0.5rem;
+   align-self: flex-end;
+   color: var(--navy-blue);   
+}
+
+
  /* Media query for laptops and larger devices */
  @media screen and (min-width: 900px) {
 
@@ -314,7 +358,7 @@
     #main-container {
        background-color: antiquewhite;
        border-radius: 20px;
-       min-height: 400px;
+       min-height: 500px;
     }
 
     #logo {
