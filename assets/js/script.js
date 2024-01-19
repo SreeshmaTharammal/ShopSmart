@@ -14,8 +14,6 @@ const listNamesContainer = document.getElementById('list-names-container');
 const itemsListContainer = document.getElementById('items-list-container');
 const addItemTabContent = document.getElementById('add-item-tab-content');
 
-showList();
-
 /**
  * Add shopping list name, called when '+' on home(list names) screen clicked.
  * Hide the home screen and display the add list name screen.
@@ -36,6 +34,20 @@ function addListName() {
     textField.focus();
 }
 
+function showMessage(message) {
+    let messageContainer = document.querySelector('.message-container');
+        const messageDiv = document.createElement("div");
+        messageContainer.style.display = 'block';
+        messageDiv.innerText = message;
+        messageContainer.appendChild(messageDiv);
+
+        // Remove the alert after 2 seconds
+        setTimeout(() => {
+            messageContainer.removeChild(messageDiv);
+            messageContainer.style.display = 'none';
+        }, 2000);
+}
+
 /**
  * Save shopping list name, called when click save button on add new list screen.
  * 
@@ -47,18 +59,12 @@ function saveListName() {
     let newList = document.getElementById('add-new-list-section');
 
     if (listName === '') {
-        let messageContainer = document.querySelector('.message-container');
-        const messageDiv = document.createElement("div");
-        messageContainer.style.display = 'block';
-        messageDiv.innerText = 'Enter a list name';
-        messageContainer.appendChild(messageDiv);
+        showMessage('Enter a list name');
+        return;
+    }
 
-        // Remove the alert after 2 seconds
-        setTimeout(() => {
-            messageContainer.removeChild(messageDiv);
-            messageContainer.style.display = 'none';
-        }, 2000);
-
+    if(shoppingLists.hasOwnProperty(listName)) {
+        showMessage('List name already exist!');
         return;
     }
 
@@ -81,10 +87,15 @@ function saveListName() {
     // Add list name to list Names Container in home screen
     listNamesContainer.appendChild(newListName);
 
-    // Clear list name screen text field
-    newList.children[1].children[1].value = '';
+    let deleteListBtn = document.createElement('button');
+    deleteListBtn.setAttribute('id', 'delete-list-btn');
+    deleteListBtn.textContent = 'X';
+    deleteListBtn.addEventListener('click', function () {
+        listNamesContainer.removeChild(newListName);
+    });
 
-    saveData();
+    // Clear list name screen text field
+    newList.children[1].children[1].value = '';    
 }
 
 /**
@@ -98,9 +109,14 @@ function backToHome() {
     itemsListSection.style.display = 'none';
 
     const items = [];
-    const itemsListContainer = document.getElementById('items-list-container');
-    const itemsList = itemsListContainer.getElementsByTagName('li');
     const currentListName = document.getElementById('items-list-heading-text').textContent;
+    const itemsListContainer = document.getElementById('items-list-container');
+    if (!itemsListContainer) {
+        shoppingLists[currentListName] = '';
+        return;
+    }
+    const itemsList = itemsListContainer.getElementsByTagName('li');
+    
     if (!itemsList) {
         shoppingLists[currentListName] = '';
         return;
@@ -116,7 +132,7 @@ function backToHome() {
     shoppingLists[currentListName] = items;
 
     // Clear items list screen
-    itemsListContainer.innerHTML = '';
+    itemsListContainer.innerHTML = '';    
 }
 
 /**
@@ -222,12 +238,21 @@ function showListItems(event) {
     }
 }
 
-function saveData() {
-    localStorage.setItem('data', listNamesContainer.innerHTML);
-}
+window.onbeforeunload = function() {
+    localStorage.setItem('data', JSON.stringify(shoppingLists));
+};
 
-function showList() {
-    listNamesContainer.innerHTML = localStorage.getItem('data');
+window.onload = function() {
+    shoppingLists = JSON.parse(localStorage.getItem('data'));
+    if(Object.keys(shoppingLists).length === 0) {
+        return;
+    }
+
+    for(const list in shoppingLists) {
+        const listNameElement = document.createElement('li');
+        listNameElement.textContent = list;
+        listNamesContainer.appendChild(listNameElement);
+    }
 }
 
 let addListButton = document.getElementById('list-add-btn');
@@ -253,6 +278,9 @@ newListClose.addEventListener('click', function () {
     newListSection.style.display = 'none';
     listNamesSection.style.display = 'flex';
     mainContainer.style.backgroundColor = 'antiquewhite';
+    let newList = document.getElementById('add-new-list-section');
+     // Clear list name screen text field
+     newList.children[1].children[1].value = '';
 });
 
 const itemsListContainerDiv = document.querySelector('.items-list-container-div');
@@ -261,7 +289,7 @@ deleteAllItems.addEventListener('onmouseover', function () {
     deleteAllItems.title = 'Delete all items';
 });
 deleteAllItems.addEventListener('click', function () {
-    itemsListContainer.remove();
+    itemsListContainer.innerHTML = '';
 });
 
 
