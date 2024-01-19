@@ -272,8 +272,7 @@ function saveToLocal() {
 };
 
 window.onload = function() {
-    shoppingLists = JSON.parse(localStorage.getItem('data'));
-    console.log(`shoppingLists length: ${Object.keys(shoppingLists).length}`)
+    shoppingLists = JSON.parse(localStorage.getItem('data'));   
     if (Object.keys(shoppingLists).length === 0) {        
         return;
     }
