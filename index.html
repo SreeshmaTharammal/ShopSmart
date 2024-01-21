@@ -13,6 +13,7 @@
     efficient with our user-friendly shopping list app.">
     <meta name="keywords" content="grocery shopping, shopping list, grocery list, shopping app, grocery app, meal planning, 
     shopping organizer, grocery management, food shopping, grocery essentials">
+    <meta name="author" content="Sreeshma Tharammal">
 
     <!--Favicon-->
 
@@ -23,19 +24,17 @@
     <title>ShopSmart</title>
 </head>
 
-<body>
+<body id="main-container">
+    <!--Header-->
+    <header id="logo">
+        <h1>Shop<img src="assets/images/shopping_list_logo.png" alt="ShopSmart app logo">Smart</h1>
+    </header>
     <!--Main content-->
-    <main id="main-container">
-
-        <!--Header-->
-        <header id="logo">
-            <h1>Shop<img src="assets/images/shopping_list_logo.png" alt="ShopSmart app logo">Smart</h1>
-        </header>
-
+    <main >
         <!-- Shopping list names section -->
         <section id="list-names-section">
             <!-- Shopping list names section heading - inludes heading text, search and add buttons -->
-            <header class="list-heading">
+            <div class="list-heading">
                 <h2 class="list-heading-text">Lists</h2>
                 <div class="list-heading-div">
                     <input class="hide" class="search-field" type="search" id="search-btn" name="search-btn">
@@ -47,7 +46,7 @@
                         <i class="fa-solid fa-plus cursor-point"></i>
                     </label>
                 </div>
-            </header>
+            </div>
 
             <div id="list-names-container-div">
                 <ul id="list-names-container">
@@ -58,13 +57,12 @@
 
         <!-- Items list section -->
         <section id="items-list-section" style="display: none;">
-            <header class="items-list-heading">
+            <div class="items-list-heading">
                 <i class="fa-solid fa-arrow-left back-arrow cursor-point" aria-label="Back arrow icon"></i>
                 <h2 id="items-list-heading-text"></h2>
-                <i class="fa-solid fa-trash-can delete-all-btn">
-                    <span class="tooltiptext">Delete all items</span>
-                </i>
-            </header>
+                <i class="fa-solid fa-trash-can delete-all-btn"></i>
+                <span class="tooltiptext">Delete all items</span>                
+            </div>
             <div class="add-item-tab">
                 <div id="add-item-tab-content">
                     <label for="add-item-btn" class="add-item-btn" aria-label="Item add button icon">
@@ -87,11 +85,11 @@
 
         <!-- Add new list section -->
         <section id="add-new-list-section" style="display: none;">
-            <header class="add-new-list-heading">
+            <div class="add-new-list-heading">
                 <i class="fa-solid fa-xmark new-list-xmark" aria-label="New list screen xmark"></i>
                 <h2 class="add-new-list-heading-text">NewList</h2>
                 <h3 id="new-list-save">SAVE</h3>
-            </header>
+            </div>
 
             <div class="list-name-field-div">
                 <h4>List Name</h4>
@@ -106,7 +104,9 @@
     <footer>
         <p><i class="fa-regular fa-copyright" aria-label="Copy right icon"></i> Created by Sreeshma Tharammal</p>        
         <a href="https://github.com/SreeshmaTharammal" target="_blank" rel="noopener"
-        aria-label="Visit my github page (opens in a new tab)"><i class="fa-brands fa-github"></i></a>       
+        aria-label="Visit my github page (opens in a new tab)">
+        <i class="fa-brands fa-github"></i>
+        </a>       
     </footer>
 
     <!-- Script -->

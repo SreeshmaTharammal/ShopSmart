@@ -10,7 +10,7 @@
     padding: 0;
  }
 
- body {
+ #main-container {
     background-color: antiquewhite;
     display: flex;
     flex-direction: row;
@@ -32,7 +32,7 @@
  }
 
  /* Main container */
- #main-container {
+ main {
     min-width: 300px;
     max-width: 900px;
     position: relative;
@@ -102,7 +102,7 @@
  .list-heading-text {
     /* 'Lists' heading expand and take up available space within the flex container */
     flex: 1;
-    padding: 10px;
+    padding: 10px 20px;
  }
 
  .list-heading-div {
@@ -129,7 +129,7 @@
     align-items: baseline;
  }
 
- ul {
+ #list-names-container {
    margin-top: 45px;
 
    display: flex;
@@ -139,19 +139,16 @@
 
  }
 
- ul li {
-    margin: 10px;
-    padding-bottom: 10px;
-    border-bottom: 0.15rem solid lightgrey;
-    font-size: 20px;
-    list-style: none;
-    position: relative;    
+ .list-name {
+   margin: 10px;
+   padding-bottom: 10px;
+   border-bottom: 0.15rem solid lightgrey;
+   font-size: 20px;
+   list-style: none;
+   position: relative;    
 
-    display: flex;   
- }
-
- #list-name {
-    color: black;
+   display: flex; 
+   color: black;
  }
 
  #delete-list-btn {
@@ -268,7 +265,8 @@
 
  #items-list-container {   
    display: flex;
-   flex-direction: column;   
+   flex-direction: column; 
+   width: 100%; 
    flex: 1;
  }
 
@@ -278,11 +276,13 @@
  }
 
  .items-list {   
+   margin: 10px;
+   padding-bottom: 10px;
    position:relative;
-    border: none;
+   border: none;
    
-    display: flex;    
-    flex: 1;
+   display: flex;    
+   flex: 1;
  }
 
  #delete-item-btn {
@@ -362,21 +362,20 @@ footer a {
 
  /* Media query for laptops and larger devices */
  @media screen and (min-width: 900px) {
-
     /* Align main container to center of the web page*/
-    body {
+    #main-container {
        background-image: url("../images/shopping_trolleys_images.jpg");
        background-color: lavender;
        background-attachment: fixed;
 
        display: flex;
        justify-content: center;
-       align-items: center;
+       /*align-items: center;*/
 
        height: fit-content;
     }
 
-    #main-container {
+   main {
        background-color: antiquewhite;
        border-radius: 20px;
        min-height: 500px;
