@@ -63,9 +63,13 @@ function saveListName() {
         return;
     }
 
-    if (shoppingLists.hasOwnProperty(listName)) {
+    if ((shoppingLists != null) && shoppingLists.hasOwnProperty(listName)) {
         showMessage('List name already exist!');
         return;
+    }
+
+    if(shoppingLists == null) {
+        shoppingLists = Object.create(null);
     }
 
     // Update items list screen heading text
@@ -83,7 +87,7 @@ function saveListName() {
     // Create list
     let newListName = document.createElement('li');
    // newListName.innerHTML = listName;
-    newListName.setAttribute('id', 'list-name');
+    newListName.setAttribute('class', 'list-name');
 
     console.log("listName: " + listName);
     // Create a text node
@@ -115,6 +119,7 @@ function saveListName() {
         listNamesContainer.removeChild(newListName); 
         shoppingLists = Array.from(shoppingLists);
         shoppingLists.pop(listNameNode);
+        saveToLocal();
     });
     
     newListName.appendChild(deleteListBtn);
@@ -133,7 +138,7 @@ function backToHome() {
     // Hide items list screen    
     itemsListSection.style.display = 'none';
 
-    const items = [];
+    let items = [];
     const currentListName = document.getElementById('items-list-heading-text').textContent;
     const itemsListContainer = document.getElementById('items-list-container');
     if (!itemsListContainer) {
@@ -267,18 +272,22 @@ function showListItems(event) {
 }
 
 function saveToLocal() {
-    localStorage.setItem('data', JSON.stringify(shoppingLists));
-    return 1;
+    localStorage.setItem('SHOPPINGLIST', JSON.stringify(shoppingLists));
 };
 
 window.onload = function() {
-    shoppingLists = JSON.parse(localStorage.getItem('data'));   
-    if (Object.keys(shoppingLists).length === 0) {        
+   
+    const listFromLocal  = JSON.parse(localStorage.getItem('SHOPPINGLIST'));  
+     
+    if ((listFromLocal == null) || (Object.keys(listFromLocal).length === 0)) {        
         return;
     }
 
+    shoppingLists = listFromLocal;
+
     for (const list in shoppingLists) {
         const listNameElement = document.createElement('li');
+        listNameElement.setAttribute('class', 'list-name');
         listNameElement.textContent = list;        
         listNamesContainer.appendChild(listNameElement);
 
@@ -303,7 +312,7 @@ window.onload = function() {
         listNamesContainer.removeChild(listNameElement); 
         shoppingLists = Array.from(shoppingLists);
         shoppingLists.pop(listNameElement.textContent);
-    });
+        });
 
     }
 }
