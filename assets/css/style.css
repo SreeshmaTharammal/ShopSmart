@@ -151,6 +151,14 @@
    color: black;
  }
 
+ #edit-list-btn {
+   position: absolute;
+   right:0;
+   top:5px;
+   margin-right: 50px;
+   font-size: 15px;
+ }
+
  #delete-list-btn {
    background: transparent;
    border :none;
@@ -178,13 +186,12 @@
  .delete-all-btn {
     padding-right: 10px;
     position: relative;
-   display: inline-block;
-   border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+   display: inline-block;  
  }
  
  /* Tooltip text */
  .delete-all-btn .tooltiptext {
-   visibility: hidden;
+   display:none;
    font-size: 10px;
    width: 120px;
    background-color: gray;
@@ -192,16 +199,16 @@
    text-align: center;
    padding: 5px 0;
    border-radius: 6px;
-   text-transform: none;
- 
-   /* Position the tooltip text - see examples below! */
+   text-transform: none; 
+   
    position: absolute;
    z-index: 1;
  }
  
  /* Show the tooltip text when you mouse over the tooltip container */
  .delete-all-btn:hover .tooltiptext {
-   visibility: visible;
+   display:flex;
+   /*visibility: visible;*/
  }
 
  .add-item-tab {
