@@ -18,13 +18,22 @@ const addItemTabContent = document.getElementById('add-item-tab-content');
  * Add shopping list name, called when '+' on home(list names) screen clicked.
  * Hide the home screen and display the add list name screen.
  */
-function addListName() {
+function addListName(list, listName) {
     // Hide list names screen 
     listNamesSection.style.display = 'none';
 
     // Display add new list screen
     let newList = document.getElementById('add-new-list-section');
     newList.style.display = 'block';
+
+    if(list === 'Edit List'){
+        const listNameElement = document.querySelector('list-name');
+        let texfield = document.getElementById('list-name-text-field');
+        texfield.value = listName;
+    }
+    
+    var newListHeader = document.querySelector('.add-new-list-heading-text');
+    newListHeader.textContent = list;
 
     // Change background to white  
     mainContainer.style.backgroundColor = 'white';
@@ -72,6 +81,11 @@ function saveListName() {
         shoppingLists = Object.create(null);
     }
 
+   /* var newListHeader = document.querySelector('.add-new-list-heading-text');
+    
+    if(newListHeader.textContent === 'Edit List') {
+        document.getElementById('items-list-heading-text').textContent = listName;
+    }*/
     // Update items list screen heading text
     document.getElementById('items-list-heading-text').textContent = listName;
 
@@ -299,6 +313,16 @@ window.onload = function() {
                 showListItems(event);
             }
         });
+        
+        let editListBtn = document.createElement('i');
+        editListBtn.classList.add('fa', 'fa-edit');
+        editListBtn.setAttribute('id', 'edit-list-btn');
+        listNameElement.appendChild(editListBtn);
+
+        editListBtn.addEventListener('click', function() {
+            console.log("Edit btn");
+            addListName('Edit List', listNameElement.textContent);
+        });
 
         let deleteListBtn = document.createElement('button');
         deleteListBtn.setAttribute('id', 'delete-list-btn');
@@ -313,12 +337,13 @@ window.onload = function() {
         shoppingLists = Array.from(shoppingLists);
         shoppingLists.pop(listNameElement.textContent);
         });
-
     }
 }
 
 let addListButton = document.getElementById('list-add-btn');
-addListButton.addEventListener('click', addListName);
+addListButton.addEventListener('click', function() {
+    addListName('New List');
+  });
 
 let save = document.getElementById('new-list-save');
 save.addEventListener('click', saveListName);
