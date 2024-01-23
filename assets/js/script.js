@@ -3,14 +3,11 @@
 //Sets an empty shoppingList that can be overriden on load by the localstorage
 let shoppingLists = {};
 
-
 const mainContainer = document.getElementById('main-container');
 const listNamesSection = document.getElementById('list-names-section');
 const itemsListSection = document.getElementById('items-list-section');
 const newListSection = document.getElementById('add-new-list-section');
-// Get the reference to 'ul' element in the home screen 
 const listNamesContainer = document.getElementById('list-names-container');
-// Get the reference to 'ul' element in the items list screen 
 const itemsListContainer = document.getElementById('items-list-container');
 const addItemTabContent = document.getElementById('add-item-tab-content');
 
@@ -19,6 +16,8 @@ const addItemTabContent = document.getElementById('add-item-tab-content');
  * Hide the home screen and display the add list name screen.
  */
 function addListName(list, listName) {
+    // Clear list name screen text field
+    newListSection.children[1].children[1].value = '';
     // Hide list names screen 
     listNamesSection.style.display = 'none';
 
@@ -26,11 +25,13 @@ function addListName(list, listName) {
     let newList = document.getElementById('add-new-list-section');
     newList.style.display = 'block';
 
+    const editBtn = document.getElementById('new-list-save');
+
     if(list === 'Edit List'){
         const listNameElement = document.querySelector('list-name');
         let texfield = document.getElementById('list-name-text-field');
-        texfield.value = listName;
-    }
+        texfield.value = listName.slice(0, -1);   
+    }          
     
     var newListHeader = document.querySelector('.add-new-list-heading-text');
     newListHeader.textContent = list;
@@ -63,85 +64,114 @@ function showMessage(message) {
  * @returns 
  */
 function saveListName() {
+    const newListHeader = document.querySelector('.add-new-list-heading-text');
     // Get the list name entered
-    const listName = document.getElementById('list-name-text-field').value;
-    let newList = document.getElementById('add-new-list-section');
+    const newListText = document.getElementById('list-name-text-field').value;    
 
-    if (listName === '') {
+    if (newListText === '') {
         showMessage('Enter a list name');
         return;
     }
 
-    if ((shoppingLists != null) && shoppingLists.hasOwnProperty(listName)) {
-        showMessage('List name already exist!');
-        return;
+    if ((shoppingLists != null) && shoppingLists.hasOwnProperty(newListText)) {
+        if(newListHeader.textContent === 'Edit List')
+        {
+            newListSection.style.display = 'none';
+            itemsListSection.style.display = 'none';
+            listNamesSection.style.display = 'flex';
+            return;
+        }else{
+            showMessage('List name already exist!');
+            return;
+        }        
     }
 
     if(shoppingLists == null) {
         shoppingLists = Object.create(null);
-    }
-
-   /* var newListHeader = document.querySelector('.add-new-list-heading-text');
+    }    
     
     if(newListHeader.textContent === 'Edit List') {
-        document.getElementById('items-list-heading-text').textContent = listName;
-    }*/
+
+        let oldListName = localStorage.getItem('currentListName');
+
+        const shoppingListsBackup = JSON.parse(JSON.stringify(shoppingLists));
+
+        shoppingLists = {};
+
+        for(let listName in shoppingListsBackup) {            
+            if(listName === oldListName) {
+                shoppingLists[newListText] = shoppingListsBackup[oldListName];
+            }else {
+                shoppingLists[listName] = shoppingListsBackup[listName];
+            }
+        }
+        
+        updateShoppingListDisplay();        
+       
+        newListSection.style.display = 'none';
+          
+        listNamesSection.style.display = 'flex';
+        return;
+    }
     // Update items list screen heading text
-    document.getElementById('items-list-heading-text').textContent = listName;
+    document.getElementById('items-list-heading-text').textContent = newListText;
 
     // Display items list screen    
     itemsListSection.style.display = 'flex';
 
     // Hide add new list screen     
-    newList.style.display = 'none';
+    newListSection.style.display = 'none';
 
     // Change background back to antiquewhite    
     mainContainer.style.backgroundColor = 'antiquewhite';
 
-    // Create list
-    let newListName = document.createElement('li');
-   // newListName.innerHTML = listName;
-    newListName.setAttribute('class', 'list-name');
-
-    console.log("listName: " + listName);
-    // Create a text node
-    let listNameNode = document.createTextNode(listName);
-    
-    newListName.addEventListener("click", function (event) {
-        if(event.target === newListName) {
-        // Prevents the event from bubbling up the DOM tree
-            event.stopPropagation();
-            console.log("Text clicked: " + this.textContent);
-            showListItems(event);
-        }
-    });
-
-    // Append the text node to the list item
-    newListName.appendChild(listNameNode);
-
-    // Add list name to list Names Container in home screen
-    listNamesContainer.appendChild(newListName);
-
-    let deleteListBtn = document.createElement('button');
-    deleteListBtn.setAttribute('id', 'delete-list-btn');
-    deleteListBtn.textContent = 'X';
-
-    // Add a click event to the button
-    deleteListBtn.addEventListener("click", function (event) {
-        // Prevents the event from bubbling up the DOM tree
-        event.stopPropagation();         
-        listNamesContainer.removeChild(newListName); 
-        shoppingLists = Array.from(shoppingLists);
-        shoppingLists.pop(listNameNode);
-        saveToLocal();
-    });
-    
-    newListName.appendChild(deleteListBtn);
-
-    // Clear new list name screen text field
-    newList.children[1].children[1].value = '';
+    updateShoppingListDisplay();
 }
 
+function updateShoppingListDisplay() {
+    listNamesContainer.innerHTML = '';
+
+    for (const list in shoppingLists) {
+        const listNameElement = document.createElement('li');
+        listNameElement.setAttribute('class', 'list-name');
+        listNameElement.textContent = list;        
+        listNamesContainer.appendChild(listNameElement);
+
+        listNameElement.addEventListener("click", function (event) {
+            if(event.target === listNameElement) {
+            // Prevents the event from bubbling up the DOM tree
+                event.stopPropagation();
+                console.log("Text clicked: " + this.textContent);
+                showListItems(event);
+            }
+        });
+        
+        let editListBtn = document.createElement('i');
+        editListBtn.classList.add('fa', 'fa-edit');
+        editListBtn.setAttribute('id', 'edit-list-btn');
+        listNameElement.appendChild(editListBtn);
+
+        editListBtn.addEventListener('click', function() {
+            console.log("Edit btn");
+            editListName(listNameElement.textContent);
+        });
+
+        let deleteListBtn = document.createElement('button');
+        deleteListBtn.setAttribute('id', 'delete-list-btn');
+        deleteListBtn.textContent = 'X';
+        listNameElement.appendChild(deleteListBtn);
+
+         // Add a click event to the button
+        deleteListBtn.addEventListener("click", function (event) {       
+            listNamesContainer.removeChild(listNameElement); 
+            shoppingLists = Array.from(shoppingLists);
+            shoppingLists.pop(listNameElement.textContent);
+            saveToLocal();
+        });
+    }
+
+    saveToLocal();
+}
 /**
  * GO back to home screen when click on back arrow on items list screen
  */
@@ -175,7 +205,7 @@ function backToHome() {
     // Add the items array to curresponding list name 
     shoppingLists[currentListName] = items;
 
-    saveToLocal();
+    updateShoppingListDisplay();
 
     // Clear items list screen
     itemsListContainer.innerHTML = '';
@@ -250,7 +280,6 @@ function addItemFn(itemName) {
         itemsNameContainer.removeChild(newItem);
     });
 
-
     // Add list name to list Names Container in home screen
     itemsNameContainer.appendChild(newItem);
     newItem.appendChild(checkbox);
@@ -261,6 +290,7 @@ function addItemFn(itemName) {
 /**
  * Go to items list screen when click on list name on home screen.
  * Update curresponding items from shoppingLists dictionary.
+ * 
  * @param {*} event 
  * @returns 
  */
@@ -298,46 +328,27 @@ window.onload = function() {
     }
 
     shoppingLists = listFromLocal;
+    updateShoppingListDisplay();   
+}
 
-    for (const list in shoppingLists) {
-        const listNameElement = document.createElement('li');
-        listNameElement.setAttribute('class', 'list-name');
-        listNameElement.textContent = list;        
-        listNamesContainer.appendChild(listNameElement);
+/**
+ * 
+ * @param {*} listName 
+ */
+function editListName(listName) {
+    // Hide home(list names) screen    
+    listNamesSection.style.display = 'none';
+    
+    newListSection.style.display = 'block';
 
-        listNameElement.addEventListener("click", function (event) {
-            if(event.target === listNameElement) {
-            // Prevents the event from bubbling up the DOM tree
-                event.stopPropagation();
-                console.log("Text clicked: " + this.textContent);
-                showListItems(event);
-            }
-        });
-        
-        let editListBtn = document.createElement('i');
-        editListBtn.classList.add('fa', 'fa-edit');
-        editListBtn.setAttribute('id', 'edit-list-btn');
-        listNameElement.appendChild(editListBtn);
+    const editListHeader = document.querySelector('.add-new-list-heading-text');
+    editListHeader.textContent = 'Edit List';        
+    
+    let texfield = document.getElementById('list-name-text-field');
+    texfield.value = listName.slice(0, -1);  
 
-        editListBtn.addEventListener('click', function() {
-            console.log("Edit btn");
-            addListName('Edit List', listNameElement.textContent);
-        });
+    localStorage.setItem('currentListName', listName.slice(0, -1));
 
-        let deleteListBtn = document.createElement('button');
-        deleteListBtn.setAttribute('id', 'delete-list-btn');
-        deleteListBtn.textContent = 'X';
-        listNameElement.appendChild(deleteListBtn);
-
-         // Add a click event to the button
-        deleteListBtn.addEventListener("click", function (event) {
-        // Prevents the event from bubbling up the DOM tree
-        event.stopPropagation();         
-        listNamesContainer.removeChild(listNameElement); 
-        shoppingLists = Array.from(shoppingLists);
-        shoppingLists.pop(listNameElement.textContent);
-        });
-    }
 }
 
 let addListButton = document.getElementById('list-add-btn');
@@ -361,17 +372,11 @@ let newListClose = document.querySelector('.new-list-xmark');
 newListClose.addEventListener('click', function () {
     newListSection.style.display = 'none';
     listNamesSection.style.display = 'flex';
-    mainContainer.style.backgroundColor = 'antiquewhite';
-    let newList = document.getElementById('add-new-list-section');
+    mainContainer.style.backgroundColor = 'antiquewhite';    
     // Clear list name screen text field
-    newList.children[1].children[1].value = '';
+    newListSection.children[1].children[1].value = '';
 });
-
-const itemsListContainerDiv = document.querySelector('.items-list-container-div');
 const deleteAllItems = document.querySelector('.delete-all-btn');
-deleteAllItems.addEventListener('onmouseover', function () {
-    deleteAllItems.title = 'Delete all items';
-});
 deleteAllItems.addEventListener('click', function () {
     itemsListContainer.innerHTML = '';
 });
