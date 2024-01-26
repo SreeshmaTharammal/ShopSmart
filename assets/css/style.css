@@ -188,10 +188,11 @@
    display: inline-block;  
  }
  
+ /* Inpaired from w3school.com: https://www.w3schools.com/howto/howto_css_tooltip.asp */
  /* Tooltip text */
  .delete-all-btn .tooltiptext {
-   display:none;
-   font-size: 10px;
+   visibility: hidden;
+   font-size: 15px;
    width: 120px;
    background-color: gray;
    color: #fff;
@@ -202,12 +203,14 @@
    
    position: absolute;
    z-index: 1;
+   bottom: 0;
+   left: 50%;
+   margin-left: -140px;
  }
  
  /* Show the tooltip text when you mouse over the tooltip container */
- .delete-all-btn:hover .tooltiptext {
-   display:flex;
-   /*visibility: visible;*/
+ .delete-all-btn:hover .tooltiptext {   
+   visibility: visible;
  }
 
  .add-item-tab {
