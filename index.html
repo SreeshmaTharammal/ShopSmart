@@ -33,7 +33,7 @@
         <h1>Shop<img src="assets/images/shopping_list_logo.png" alt="ShopSmart app logo">Smart</h1>
     </header>
     <!--Main content-->
-    <main >
+    <main id="main">
         <!-- Shopping list names section -->
         <section id="list-names-section">
             <!-- Shopping list names section heading - inludes heading text, search and add buttons -->
@@ -41,9 +41,9 @@
                 <h2 class="list-heading-text">Lists</h2>
                 <div class="list-heading-div">
                     <input class="hide" class="search-field" type="search" id="search-btn" name="search-btn">
-                    <label for="search-btn" class="search-btn" aria-label="Search icon">
-                        <i class="fa-solid fa-magnifying-glass cursor-point"></i>
-                    </label>
+                  <!--  <label for="search-btn" class="" aria-label="Search icon"> </label>-->
+                    <i class="fa-solid fa-magnifying-glass cursor-point search-btn"></i>
+                   
 
                     <label for="list-add-btn" id="list-add-btn" class="list-add-btn" aria-label="List add button icon">
                         <i class="fa-solid fa-plus cursor-point"></i>
@@ -79,7 +79,6 @@
                     <input type="text" class="item-text-field" name="item-text-field">
                     <button class="enter-item-btn">Add</button>
                 </div>
-
             </div>
             <div class="items-list-container-div">
                 <ul id="items-list-container">

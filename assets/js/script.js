@@ -37,25 +37,60 @@ function addListName(list, listName) {
     newListHeader.textContent = list;
 
     // Change background to white  
-    mainContainer.style.backgroundColor = 'white';
+  //  mainContainer.style.backgroundColor = 'white';
 
     // Set focus
     let textField = document.getElementById('list-name-text-field');
     textField.focus();
 }
 
-function showMessage(message) {
-    let messageContainer = document.querySelector('.message-container');
-    const messageDiv = document.createElement("div");
-    messageContainer.style.display = 'block';
-    messageDiv.innerText = message;
-    messageContainer.appendChild(messageDiv);
 
-    // Remove the alert after 2 seconds
-    setTimeout(() => {
-        messageContainer.removeChild(messageDiv);
-        messageContainer.style.display = 'none';
-    }, 2000);
+/**
+ * Go to items list screen when click on list name on home screen.
+ * Update curresponding items from shoppingLists dictionary.
+ * 
+ * @param {*} event 
+ * @returns 
+ */
+function showListItems(event) {
+    // Hide home(list names) screen    
+    listNamesSection.style.display = 'none';
+
+    // Display items list screen    
+    itemsListSection.style.display = 'flex';
+
+    let currentListName = event.target.textContent; 
+    currentListName = currentListName.slice(0, -1);
+
+    // Update items list screen heading text
+    document.getElementById('items-list-heading-text').textContent = currentListName;
+    if (!shoppingLists.hasOwnProperty(currentListName)) {
+        return;
+    }
+
+    for (const itemNameStatusStr of shoppingLists[currentListName]) {
+        const itemNameStatus = JSON.parse(itemNameStatusStr);
+        addItemFn(itemNameStatus[0], itemNameStatus[1]);
+    }
+}
+
+/**
+ * 
+ * @param {*} listName 
+ */
+function editListName(listName) {
+    // Hide home(list names) screen    
+    listNamesSection.style.display = 'none';
+    
+    newListSection.style.display = 'block';
+
+    const editListHeader = document.querySelector('.add-new-list-heading-text');
+    editListHeader.textContent = 'Edit List';        
+    
+    let texfield = document.getElementById('list-name-text-field');
+    texfield.value = listName.slice(0, -1);  
+
+    localStorage.setItem('currentListName', listName.slice(0, -1));
 }
 
 /**
@@ -122,9 +157,6 @@ function saveListName() {
     // Hide add new list screen     
     newListSection.style.display = 'none';
 
-    // Change background back to antiquewhite    
-    mainContainer.style.backgroundColor = 'antiquewhite';
-
     updateShoppingListDisplay();
 }
 
@@ -162,69 +194,38 @@ function updateShoppingListDisplay() {
         listNameElement.appendChild(deleteListBtn);
 
          // Add a click event to the button
-        deleteListBtn.addEventListener("click", function (event) {       
-            listNamesContainer.removeChild(listNameElement); 
-            shoppingLists = Array.from(shoppingLists);
-            shoppingLists.pop(listNameElement.textContent);
-            saveToLocal();
+        deleteListBtn.addEventListener("click", function (event) {  
+            createDialogBox(`Do you want to delete ${list}?`,
+                function() {
+                    delete shoppingLists[list];
+                    updateShoppingListDisplay();
+                });  
         });
     }
 
     saveToLocal();
 }
-/**
- * GO back to home screen when click on back arrow on items list screen
- */
-function backToHome() {
-    // Display home(list names) screen    
-    listNamesSection.style.display = 'flex';
 
-    // Hide items list screen    
-    itemsListSection.style.display = 'none';
-
-    let items = [];
-    const currentListName = document.getElementById('items-list-heading-text').textContent;
-    const itemsListContainer = document.getElementById('items-list-container');
-    if (!itemsListContainer) {
-        shoppingLists[currentListName] = '';
-        return;
-    }
-    const itemsList = itemsListContainer.getElementsByTagName('li');
-
-    if (!itemsList) {
-        shoppingLists[currentListName] = '';
-        return;
-    }
-
-    // iterate items list and add to the array
-    for (let item of itemsList) {
-        item = item.textContent.slice(0, -1);
-        items.push(item);
-    }
-
-    // Add the items array to curresponding list name 
-    shoppingLists[currentListName] = items;
-
-    updateShoppingListDisplay();
-
-    // Clear items list screen
-    itemsListContainer.innerHTML = '';
-}
+function saveToLocal() {
+    localStorage.setItem('SHOPPINGLIST', JSON.stringify(shoppingLists));
+};
 
 /**
- * Shows add item text field, called when click on add item secton om items list screen
+ * 
+ * @param {*} message 
  */
-function enterItem() {
-    // Hide add item section    
-    addItemTabContent.style.display = 'none';
+function showMessage(message) {
+    let messageContainer = document.querySelector('.message-container');
+    const messageDiv = document.createElement("div");
+    messageContainer.style.display = 'block';
+    messageDiv.innerText = message;
+    messageContainer.appendChild(messageDiv);
 
-    // Display text field  and add button below items list screen heading
-    const addItemNameDiv = document.querySelector('.add-item-name-container');
-    addItemNameDiv.style.display = 'flex';
-
-    // Set focus
-    let textField = document.querySelector('.item-text-field');
-    textField.focus();
+    // Remove the alert after 2 seconds
+    setTimeout(() => {
+        messageContainer.removeChild(messageDiv);
+        messageContainer.style.display = 'none';
+    }, 2000);
 }
 
 /**
@@ -248,7 +249,7 @@ function addItemOnClick() {
  * Add items to the items list screen.
  * @param {*} itemName 
  */
-function addItemFn(itemName) {
+function addItemFn(itemName, itemStatus = false) {
     const itemsNameContainer = document.getElementById('items-list-container');
     // creating checkbox element
     let checkbox = document.createElement('input');
@@ -257,6 +258,7 @@ function addItemFn(itemName) {
     checkbox.type = "checkbox";
     checkbox.name = "name";
     checkbox.value = "value";
+    checkbox.checked = itemStatus;
     // checkbox.id = "checkbox";
     checkbox.setAttribute('class', 'checkbox');
     checkbox.setAttribute('id', `checkbox-${itemName}`);
@@ -288,36 +290,63 @@ function addItemFn(itemName) {
 }
 
 /**
- * Go to items list screen when click on list name on home screen.
- * Update curresponding items from shoppingLists dictionary.
- * 
- * @param {*} event 
- * @returns 
+ * GO back to home screen when click on back arrow on items list screen
  */
-function showListItems(event) {
-    // Hide home(list names) screen    
-    listNamesSection.style.display = 'none';
+function backToHome() {
+    // Display home(list names) screen    
+    listNamesSection.style.display = 'flex';
 
-    // Display items list screen    
-    itemsListSection.style.display = 'flex';
+    // Hide items list screen    
+    itemsListSection.style.display = 'none';
 
-    let currentListName = event.target.textContent; 
-    currentListName = currentListName.slice(0, -1);
+    let items = [];
+    const currentListName = document.getElementById('items-list-heading-text').textContent;
+    const itemsListContainer = document.getElementById('items-list-container');
+    if (!itemsListContainer) {
+        shoppingLists[currentListName] = '';
+        return;
+    }
+    const itemsList = itemsListContainer.getElementsByTagName('li');
 
-    // Update items list screen heading text
-    document.getElementById('items-list-heading-text').textContent = currentListName;
-    if (!shoppingLists.hasOwnProperty(currentListName)) {
+    if (!itemsList) {
+        shoppingLists[currentListName] = '';
         return;
     }
 
-    for (const itemName of shoppingLists[currentListName]) {
-        addItemFn(itemName);
+    // iterate items list and add to the array
+    for (let item of itemsList) {
+        item = item.textContent.slice(0, -1);
+        const checkbox = document.getElementById(`checkbox-${item}`);
+        let status = checkbox.checked;
+        console.log(`status: ${status}`);
+        
+        items.push(JSON.stringify([item, status]));
     }
+
+    // Add the items array to curresponding list name 
+    shoppingLists[currentListName] = items;
+
+    updateShoppingListDisplay();
+
+    // Clear items list screen
+    itemsListContainer.innerHTML = '';
 }
 
-function saveToLocal() {
-    localStorage.setItem('SHOPPINGLIST', JSON.stringify(shoppingLists));
-};
+/**
+ * Shows add item text field, called when click on add item secton om items list screen
+ */
+function enterItem() {
+    // Hide add item section    
+    addItemTabContent.style.display = 'none';
+
+    // Display text field  and add button below items list screen heading
+    const addItemNameDiv = document.querySelector('.add-item-name-container');
+    addItemNameDiv.style.display = 'flex';
+
+    // Set focus
+    let textField = document.querySelector('.item-text-field');
+    textField.focus();
+}
 
 window.onload = function() {
    
@@ -331,27 +360,61 @@ window.onload = function() {
     updateShoppingListDisplay();   
 }
 
-/**
- * 
- * @param {*} listName 
- */
-function editListName(listName) {
-    // Hide home(list names) screen    
-    listNamesSection.style.display = 'none';
-    
-    newListSection.style.display = 'block';
-
-    const editListHeader = document.querySelector('.add-new-list-heading-text');
-    editListHeader.textContent = 'Edit List';        
-    
-    let texfield = document.getElementById('list-name-text-field');
-    texfield.value = listName.slice(0, -1);  
-
-    localStorage.setItem('currentListName', listName.slice(0, -1));
-
+function disableParentClicks() {
+    document.body.style.pointerEvents = "none";
+}
+  
+function enableParentClicks() {
+    document.body.style.pointerEvents = "auto";
 }
 
-let addListButton = document.getElementById('list-add-btn');
+/**
+ * Suggestion from Microsoft copilot
+ * @param {*} message 
+ * @param {*} okCallback 
+ */
+function createDialogBox(message, okCallback) {
+    const dialogBox = document.createElement("div");
+    dialogBox.style.position = "fixed";
+    dialogBox.style.top = "30%";
+    dialogBox.style.left = "50%";
+    dialogBox.style.transform = "translate(-50%, -50%)";
+    dialogBox.style.backgroundColor = "white";
+    dialogBox.style.padding = "20px";
+    dialogBox.style.borderRadius = "10px";
+    dialogBox.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.5)";
+    dialogBox.style.zIndex = "9999";
+  
+    const messageElement = document.createElement("p");
+    messageElement.textContent = message;
+    dialogBox.appendChild(messageElement);
+  
+    const okButton = document.createElement("button");
+    okButton.textContent = "OK";
+    okButton.style.marginRight = "10px";
+    okButton.addEventListener("click", () => {
+      okCallback();
+      document.body.removeChild(dialogBox);
+      enableParentClicks();
+    });
+    dialogBox.appendChild(okButton);
+  
+    const cancelButton = document.createElement("button");
+    cancelButton.textContent = "Cancel";
+    cancelButton.addEventListener("click", () => {
+      document.body.removeChild(dialogBox);
+      enableParentClicks();
+    });
+    dialogBox.appendChild(cancelButton);
+  
+    document.body.appendChild(dialogBox);
+    disableParentClicks();
+
+    okButton.style.pointerEvents = 'auto';
+    cancelButton.style.pointerEvents = 'auto';
+}
+
+const addListButton = document.getElementById('list-add-btn');
 addListButton.addEventListener('click', function() {
     addListName('New List');
   });
@@ -371,15 +434,66 @@ addItem.addEventListener('click', addItemOnClick);
 let newListClose = document.querySelector('.new-list-xmark');
 newListClose.addEventListener('click', function () {
     newListSection.style.display = 'none';
-    listNamesSection.style.display = 'flex';
-    mainContainer.style.backgroundColor = 'antiquewhite';    
+    listNamesSection.style.display = 'flex';     
     // Clear list name screen text field
     newListSection.children[1].children[1].value = '';
 });
+
 const deleteAllItems = document.querySelector('.delete-all-btn');
-deleteAllItems.addEventListener('click', function () {
-    itemsListContainer.innerHTML = '';
+deleteAllItems.addEventListener('click', function () {       
+    createDialogBox(
+        "?",
+        function () {
+          itemsListContainer.innerHTML = '';
+        }
+      );
 });
+
+const searchBtn = document.querySelector('.search-btn');
+searchBtn.addEventListener('click', searchBtnOnClick);
+
+function searchBtnOnClick() {
+    let section = document.createElement('section');
+    section.setAttribute('id', 'search-list-section');
+    const body = document.getElementById('main-container');
+    body.appendChild(section);
+    listNamesSection.style.display = 'none';
+
+    let searchScreen = `        
+        <div class = "search-heading-div">
+            <h2>
+                <i class="fa-solid fa-xmark"></i>
+                <input oninput ="searchFieldOnChange()" class="search-field" type="search" id="search-btn" name="search-btn" placeholder="Search Lists">
+            </h2>
+        </div>`
+    document.getElementById('search-list-section').innerHTML = searchScreen;
+}
+
+function searchFieldOnChange() {
+    const searchScreenSection = document.getElementById('search-list-section');
+    let searchResultContainerDiv = document.createElement('div');
+    searchResultContainerDiv.setAttribute('class', 'search-result-container');
+    searchScreenSection.appendChild(searchResultContainerDiv);
+
+    let searchResultScreen = `<ul>`;
+    
+    let inputText = document.querySelector('.search-field').value;
+    //let inputText = this.value;
+    for (let key in shoppingLists)  {
+        if(key !== inputText) {
+            searchResultScreen += `<li class="list-name">${key}</li>`;
+        } 
+    } 
+
+    searchResultScreen +=  `</ul>`;
+    document.querySelector('.search-result-container').innerHTML = searchResultScreen
+}
+       
+            
+    
+   
+    
+
 
 
 
