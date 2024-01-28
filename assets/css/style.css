@@ -11,7 +11,7 @@
  }
 
  #main-container {
-   /* background-color: antiquewhite;*/
+    /* background-color: antiquewhite;*/
     background-color: white;
     display: flex;
     flex-direction: row;
@@ -38,11 +38,11 @@
     max-width: 900px;
     position: relative;
     cursor: default;
-    
+
     display: flex;
-    flex-direction: column;    
-    align-items: baseline;    
-    flex: 1;   
+    flex-direction: column;
+    align-items: baseline;
+    flex: 1;
  }
 
  /* Header */
@@ -58,7 +58,6 @@
     flex: 1;
     z-index: 99;
     padding: .5rem 1rem;
-
  }
 
  /* Set logo image width and height */
@@ -71,7 +70,7 @@
  /*----- << Items list screen >>----- */
  #list-names-section,
  #items-list-section,
- #add-new-list-section {  
+ #add-new-list-section {
     margin-top: 70px;
     width: 100%;
 
@@ -100,7 +99,7 @@
     flex-wrap: wrap;
     flex: 1;
     z-index: 70;
- } 
+ }
 
  .list-heading-text {
     /* 'Lists' heading expand and take up available space within the flex container */
@@ -113,16 +112,12 @@
 
     display: flex;
     justify-content: space-around;
-    flex-basis: 100px;
+    flex-basis: 30%;
  }
 
- .search-btn {
-    padding-left: 10px;
-    padding-right: 10px;
- }
-
- .list-add-btn {
-    padding-right: 10px;
+ .search-field {
+    padding-left: 5px;
+    padding-right: 40px;
  }
 
  #list-names-container-div {
@@ -133,47 +128,47 @@
  }
 
  #list-names-container {
-   margin-top: 45px;
+    margin-top: 45px;
 
-   display: flex;
-   flex-direction: column;
-   width: 100%;
-   flex: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex: 1;
  }
 
  .list-name {
-   margin: 10px;
-   padding-bottom: 10px;
-   border-bottom: 0.15rem solid lightgrey;
-   font-size: 20px;
-   list-style: none;
-   position: relative;    
+    margin: 10px;
+    padding-bottom: 10px;
+    border-bottom: 0.15rem solid lightgrey;
+    font-size: 20px;
+    list-style: none;
+    position: relative;
 
-   display: flex; 
-   color: black;
+    display: flex;
+    color: black;
  }
 
  #edit-list-btn {
-   position: absolute;
-   right:0;
-   top:5px;
-   margin-right: 50px;
-   font-size: 15px;
+    position: absolute;
+    right: 0;
+    top: 5px;
+    margin-right: 50px;
+    font-size: 15px;
  }
 
  #delete-list-btn {
-   background: transparent;
-   border :none;
-   position: absolute;
-   right:0;
-   top:5px;
-   margin-right: 10px;
-   font-size: 15px;
+    background: transparent;
+    border: none;
+    position: absolute;
+    right: 0;
+    top: 5px;
+    margin-right: 10px;
+    font-size: 15px;
  }
 
  /*----- << Items list screen >>----- */
  .items-list-heading {
-    padding: 10px;    
+    padding: 10px;
  }
 
  .back-arrow {
@@ -188,32 +183,32 @@
  .delete-all-btn {
     padding-right: 10px;
     position: relative;
-   display: inline-block;  
+    display: inline-block;
  }
- 
+
  /* Inpaired from w3school.com: https://www.w3schools.com/howto/howto_css_tooltip.asp */
  /* Tooltip text */
  .delete-all-btn .tooltiptext {
-   visibility: hidden;
-   font-size: 15px;
-   width: 120px;
-   background-color: gray;
-   color: #fff;
-   text-align: center;
-   padding: 5px 0;
-   border-radius: 6px;
-   text-transform: none; 
-   
-   position: absolute;
-   z-index: 1;
-   bottom: 0;
-   left: 50%;
-   margin-left: -140px;
+    visibility: hidden;
+    font-size: 15px;
+    width: 120px;
+    background-color: gray;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    text-transform: none;
+
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    left: 50%;
+    margin-left: -140px;
  }
- 
+
  /* Show the tooltip text when you mouse over the tooltip container */
- .delete-all-btn:hover .tooltiptext {   
-   visibility: visible;
+ .delete-all-btn:hover .tooltiptext {
+    visibility: visible;
  }
 
  .add-item-tab {
@@ -268,18 +263,18 @@
     margin-right: 10px;
  }
 
- .items-list-container-div {   
+ .items-list-container-div {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: baseline;
  }
 
- #items-list-container {   
-   display: flex;
-   flex-direction: column; 
-   width: 100%; 
-   flex: 1;
+ #items-list-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex: 1;
  }
 
  .checkbox {
@@ -287,24 +282,24 @@
     border: 0.15rem solid #0471a6;
  }
 
- .items-list {   
-   margin: 10px;
-   padding-bottom: 10px;
-   position:relative;
-   border: none;
-   
-   display: flex;    
-   flex: 1;
+ .items-list {
+    margin: 10px;
+    padding-bottom: 10px;
+    position: relative;
+    border: none;
+
+    display: flex;
+    flex: 1;
  }
 
  #delete-item-btn {
-   background: transparent;
-   border :none;
-   position: absolute;
-   right:0;
-   top:5px;
-   margin-right: 10px;
-   font-size: 15px; 
+    background: transparent;
+    border: none;
+    position: absolute;
+    right: 0;
+    top: 5px;
+    margin-right: 10px;
+    font-size: 15px;
  }
 
  /*----- << Add new list screen >>----- */
@@ -334,7 +329,7 @@
     height: 2rem
  }
 
- .message-container {   
+ .message-container {
     background-color: white;
     font-size: 20px;
     position: absolute;
@@ -346,13 +341,12 @@
  }
 
  .delete-message-container {
-   z-index: 1000;
+    z-index: 1000;
  }
 
- /*----- << search list screen >>----- */ 
-
+ /*----- << search list screen >>----- */
  #search-list-section {
-   margin-top: 70px;
+    margin-top: 70px;
     width: 100%;
 
     display: flex;
@@ -363,40 +357,41 @@
  }
 
  .search-heading-div {
-   left: 0;
+    left: 0;
  }
 
  /*----- << Footer >>----- */
  footer {
-   position: fixed;
-   background-color: #a4c2a8;
-   width: 100%;
-   max-width: 900px;
-   top: 94%;   
-   height: 4rem;
+    position: fixed;
+    background-color: #a4c2a8;
+    width: 100%;
+    max-width: 900px;
+    top: 94%;
+    height: 4rem;
 
-   display: flex;
-   justify-content: space-evenly;
-   align-items: center;
-   z-index: 70;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    z-index: 70;
  }
 
- footer p {     
-   margin-bottom: 0.5rem;
-   margin-left: 2%;   
-   font-size: 100%;
-   width: 100%;   
-}
+ footer p {
+    margin-bottom: 0.5rem;
+    margin-left: 2%;
+    font-size: 100%;
+    width: 100%;
+ }
 
-footer a {      
-   font-size: 1.6rem;   
-   padding-right: 0.5rem;
-   margin-bottom: 0.5rem;
-   align-self: center;     
-}
+ footer a {
+    font-size: 1.6rem;
+    padding-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    align-self: center;
+ }
 
  /* Media query for laptops and larger devices */
  @media screen and (min-width: 800px) {
+
     /* Align main container to center of the web page*/
     #main-container {
        background-image: url("../images/shopping_trolleys_images.jpg");
@@ -405,32 +400,29 @@ footer a {
 
        display: flex;
        justify-content: center;
-       /*align-items: center;*/
 
        height: fit-content;
     }
 
-   main {
+    main {
        background-color: white;
-       margin-top: 1.7rem;
-       border-radius: 20px;
+       margin-top: 1.7rem;     
        min-height: 500px;
     }
 
     #logo {
-       font-size: 2rem;      
-       border-radius: 20px 20px 0 0;
+       font-size: 2rem;       
        letter-spacing: 1.5px;
     }
 
     #logo img {
-      width: 70px;
-      height: auto;
-      padding: 0 .25rem;
-   }
+       width: 70px;
+       height: auto;
+       padding: 0 .25rem;
+    }
 
-   footer {
-      top: 95%;
-      font-size: 120%;
-   }   
+    footer {
+       top: 95%;
+       font-size: 120%;
+    }
  }

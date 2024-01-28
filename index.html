@@ -40,14 +40,10 @@
             <div class="list-heading">
                 <h2 class="list-heading-text">Lists</h2>
                 <div class="list-heading-div">
-                    <input class="hide" class="search-field" type="search" id="search-btn" name="search-btn">
-                  <!--  <label for="search-btn" class="" aria-label="Search icon"> </label>-->
-                    <i class="fa-solid fa-magnifying-glass cursor-point search-btn"></i>
-                   
-
-                    <label for="list-add-btn" id="list-add-btn" class="list-add-btn" aria-label="List add button icon">
+                    <input oninput ="filterLists()" class="search-field" type="search" id="search-btn" name="search-btn" placeholder="Search List">                 
+                    <span id="list-add-btn" class="list-add-btn" aria-label="List add button icon">
                         <i class="fa-solid fa-plus cursor-point"></i>
-                    </label>
+                    </span>
                 </div>
             </div>
 
@@ -64,15 +60,15 @@
                 <i class="fa-solid fa-arrow-left back-arrow cursor-point" aria-label="Back arrow icon"></i>
                 <h2 id="items-list-heading-text"></h2>
                 <div class="delete-all-btn">
-                    <i class="fa-solid fa-trash-can "></i>
+                    <i class="fa-solid fa-trash-can"></i>
                     <span class="tooltiptext">Delete all items</span>   
                 </div>             
             </div>
             <div class="add-item-tab">
                 <div id="add-item-tab-content">
-                    <label for="add-item-btn" class="add-item-btn" aria-label="Item add button icon">
+                    <span class="add-item-btn" aria-label="Item add button icon">
                         <i class="fa-solid fa-plus"></i>
-                    </label>
+                    </span>
                     <h3 class="add-item-text ">Add Item</h3>
                 </div>
                 <div class="add-item-name-container" style="display: none;">

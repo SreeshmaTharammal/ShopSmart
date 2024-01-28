@@ -94,6 +94,38 @@ function editListName(listName) {
 }
 
 /**
+ * 
+ */
+function filterLists() {
+    const searchTerm = document.getElementById('search-btn').value;
+    if(searchTerm == "") {
+        displayShoppingList(shoppingLists, false);
+        return;
+    }
+
+    const searchResult = searchShoppingList(searchTerm);
+
+    displayShoppingList(searchResult, false);
+}
+
+function searchShoppingList(searchTerm) {
+    const filteredKeys = Object.keys(shoppingLists).filter(key => {
+      return key.toLowerCase().includes(searchTerm.toLowerCase());
+    });
+
+    return filterShoppingList(filteredKeys);
+}
+
+function filterShoppingList(keys) {
+    return keys.reduce((result, key) => {
+      if (shoppingLists.hasOwnProperty(key)) {
+        result[key] = shoppingLists[key];
+      }
+      return result;
+    }, {});
+  }
+
+/**
  * Save shopping list name, called when click save button on add new list screen.
  * 
  * @returns 
@@ -141,7 +173,7 @@ function saveListName() {
             }
         }
         
-        updateShoppingListDisplay();        
+        displayAllShoppingList();        
        
         newListSection.style.display = 'none';
           
@@ -157,13 +189,17 @@ function saveListName() {
     // Hide add new list screen     
     newListSection.style.display = 'none';
 
-    updateShoppingListDisplay();
+    displayAllShoppingList();
 }
 
-function updateShoppingListDisplay() {
+function displayAllShoppingList() {
+    displayShoppingList(shoppingLists, true)
+}
+
+function displayShoppingList(shoppingListsToDisplay, isRequiredToSave) {
     listNamesContainer.innerHTML = '';
 
-    for (const list in shoppingLists) {
+    for (const list in shoppingListsToDisplay) {
         const listNameElement = document.createElement('li');
         listNameElement.setAttribute('class', 'list-name');
         listNameElement.textContent = list;        
@@ -171,8 +207,6 @@ function updateShoppingListDisplay() {
 
         listNameElement.addEventListener("click", function (event) {
             if(event.target === listNameElement) {
-            // Prevents the event from bubbling up the DOM tree
-                event.stopPropagation();
                 console.log("Text clicked: " + this.textContent);
                 showListItems(event);
             }
@@ -198,12 +232,14 @@ function updateShoppingListDisplay() {
             createDialogBox(`Do you want to delete ${list}?`,
                 function() {
                     delete shoppingLists[list];
-                    updateShoppingListDisplay();
+                    displayAllShoppingList();
                 });  
         });
     }
 
-    saveToLocal();
+    if(isRequiredToSave) {
+        saveToLocal();
+    }
 }
 
 function saveToLocal() {
@@ -326,7 +362,7 @@ function backToHome() {
     // Add the items array to curresponding list name 
     shoppingLists[currentListName] = items;
 
-    updateShoppingListDisplay();
+    displayAllShoppingList();
 
     // Clear items list screen
     itemsListContainer.innerHTML = '';
@@ -357,7 +393,7 @@ window.onload = function() {
     }
 
     shoppingLists = listFromLocal;
-    updateShoppingListDisplay();   
+    displayAllShoppingList();   
 }
 
 function disableParentClicks() {
@@ -448,46 +484,6 @@ deleteAllItems.addEventListener('click', function () {
         }
       );
 });
-
-const searchBtn = document.querySelector('.search-btn');
-searchBtn.addEventListener('click', searchBtnOnClick);
-
-function searchBtnOnClick() {
-    let section = document.createElement('section');
-    section.setAttribute('id', 'search-list-section');
-    const body = document.getElementById('main-container');
-    body.appendChild(section);
-    listNamesSection.style.display = 'none';
-
-    let searchScreen = `        
-        <div class = "search-heading-div">
-            <h2>
-                <i class="fa-solid fa-xmark"></i>
-                <input oninput ="searchFieldOnChange()" class="search-field" type="search" id="search-btn" name="search-btn" placeholder="Search Lists">
-            </h2>
-        </div>`
-    document.getElementById('search-list-section').innerHTML = searchScreen;
-}
-
-function searchFieldOnChange() {
-    const searchScreenSection = document.getElementById('search-list-section');
-    let searchResultContainerDiv = document.createElement('div');
-    searchResultContainerDiv.setAttribute('class', 'search-result-container');
-    searchScreenSection.appendChild(searchResultContainerDiv);
-
-    let searchResultScreen = `<ul>`;
-    
-    let inputText = document.querySelector('.search-field').value;
-    //let inputText = this.value;
-    for (let key in shoppingLists)  {
-        if(key !== inputText) {
-            searchResultScreen += `<li class="list-name">${key}</li>`;
-        } 
-    } 
-
-    searchResultScreen +=  `</ul>`;
-    document.querySelector('.search-result-container').innerHTML = searchResultScreen
-}
        
             
     
