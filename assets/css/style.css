@@ -119,6 +119,16 @@
    transition: transform 0.3s ease;
  }
 
+ #list-add-btn .tooltiptext {
+   width: 60px;
+   margin-left: -80px;
+   font-size: 10px;
+ }
+
+ #list-add-btn:hover .tooltiptext {
+   visibility: visible;
+}
+
  #list-names-container-div {
     width: 100%;
     display: flex;
@@ -185,7 +195,7 @@
 
  /* Inpaired from w3school.com: https://www.w3schools.com/howto/howto_css_tooltip.asp */
  /* Tooltip text */
- .delete-all-btn .tooltiptext {
+  .tooltiptext {
     visibility: hidden;
     font-size: 15px;
     width: 120px;
