@@ -114,6 +114,11 @@
     font-size: 25px;
  }
 
+ #list-add-btn:hover {   
+   transform: scale(1.5);
+   transition: transform 0.3s ease;
+ }
+
  #list-names-container-div {
     width: 100%;
     display: flex;
