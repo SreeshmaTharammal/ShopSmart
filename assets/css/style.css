@@ -144,6 +144,10 @@
     width: 100%;
     flex: 1;
  }
+ 
+ #search-btn::-webkit-search-cancel-button {
+   cursor: pointer;
+ }
 
  .list-name {
     margin: 10px;
