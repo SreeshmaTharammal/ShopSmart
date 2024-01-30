@@ -361,8 +361,18 @@
     padding-left: 15px;
  }
 
+ .new-list-xmark:hover {
+   transform: scale(1.2);
+   transition: transform 0.3s ease;
+ } 
+
  #new-list-save {
     padding-right: 30px;
+ }
+
+ #new-list-save:hover {
+   transform: scale(1.2);
+   transition: transform 0.3s ease;
  }
 
  .list-name-field-div {
