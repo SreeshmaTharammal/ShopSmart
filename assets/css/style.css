@@ -265,6 +265,7 @@
 
  .add-item-name-container {
     margin: 10px;
+    border-bottom: 2px solid darkgray;
     display: flex;
     justify-content: left;
     align-items: baseline;
