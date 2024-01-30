@@ -35,16 +35,10 @@ function addListName() {
 /**
  * Go to items list screen when click on list name on home screen.
  * Update curresponding items from shoppingLists dictionary.
- * 
- * @param {*} event 
- * @returns 
  */
-function showListItems(event) {      
+function showListItems(currentListName) {      
     listNamesSection.style.display = 'none';      
     itemsListSection.style.display = 'flex';
-
-    let currentListName = event.target.textContent; 
-    currentListName = currentListName.slice(0, -1);
 
     // Update items list screen heading text
     document.getElementById('items-list-heading-text').textContent = currentListName;
@@ -72,10 +66,11 @@ function editListName(listName) {
     editListHeader.textContent = 'Edit List';        
     
     let texfield = document.getElementById('list-name-text-field');
-    texfield.value = listName.slice(0, -1);  
+    texfield.value = listName;  
+    texfield.focus();
 
     // Save the current list name to retrive in the edit view.
-    localStorage.setItem('currentListName', listName.slice(0, -1));
+    localStorage.setItem('currentListName', listName);
 }
 
 /**
@@ -208,9 +203,8 @@ function displayShoppingList(shoppingListsToDisplay, isRequiredToSave) {
         listNamesContainer.appendChild(listNameElement);
 
         listNameElement.addEventListener("click", function (event) {
-            if(event.target === listNameElement) {
-                console.log("Text clicked: " + this.textContent);
-                showListItems(event);
+            if(event.target === listNameElement) {                
+                showListItems(list);
             }
         });
         
@@ -219,8 +213,8 @@ function displayShoppingList(shoppingListsToDisplay, isRequiredToSave) {
         editListBtn.setAttribute('id', 'edit-list-btn');
         listNameElement.appendChild(editListBtn);
 
-        editListBtn.addEventListener('click', function() {
-            editListName(listNameElement.textContent);
+        editListBtn.addEventListener('click', function() {                               
+            editListName(list);          
         });
 
         editListBtn.addEventListener('mouseover', function(event) {
@@ -324,6 +318,7 @@ function addItemToList(itemName, itemStatus = false) {
     checkbox.type = "checkbox";
     checkbox.name = "name";
     checkbox.value = "value";
+    checkbox.style.cursor = 'pointer';
     checkbox.checked = itemStatus;
     // checkbox.id = "checkbox";
     checkbox.setAttribute('class', 'checkbox');
@@ -344,6 +339,7 @@ function addItemToList(itemName, itemStatus = false) {
     let deleteItemBtn = document.createElement('button');
     deleteItemBtn.setAttribute('id', 'delete-item-btn');
     deleteItemBtn.textContent = 'X';
+    deleteItemBtn.style.cursor = 'pointer';
     deleteItemBtn.addEventListener('click', function () {
         itemsNameContainer.removeChild(newItem);
     });
@@ -434,6 +430,7 @@ window.onload = function() {
     }
 
     shoppingLists = listFromLocal;
+    listNamesContainer.innerHTML.trim();
     displayAllShoppingList();   
 }
 
@@ -582,7 +579,7 @@ deleteAllItemsButton.addEventListener('click', function () {
     if(itemsListContainer.innerHTML == '') {
         return;
     }
-    
+
     createDialogBox(
         "Do you want to delete all items from list?",
         function () {
