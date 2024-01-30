@@ -216,6 +216,11 @@
     display: inline-block;
  }
 
+ .delete-all-btn:hover {
+   transform: scale(1.2);
+   transition: transform 0.3s ease;
+ }
+
  /* Inpaired from w3school.com: https://www.w3schools.com/howto/howto_css_tooltip.asp */
  /* Tooltip text */
  .tooltiptext {
