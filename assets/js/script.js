@@ -319,8 +319,7 @@ function addItemToList(itemName, itemStatus = false) {
     checkbox.name = "name";
     checkbox.value = "value";
     checkbox.style.cursor = 'pointer';
-    checkbox.checked = itemStatus;
-    // checkbox.id = "checkbox";
+    checkbox.checked = itemStatus;    
     checkbox.setAttribute('class', 'checkbox');
     checkbox.setAttribute('id', `checkbox-${itemName}`);
 
@@ -340,6 +339,8 @@ function addItemToList(itemName, itemStatus = false) {
     deleteItemBtn.setAttribute('id', 'delete-item-btn');
     deleteItemBtn.textContent = 'X';
     deleteItemBtn.style.cursor = 'pointer';
+    deleteItemBtn.style.transition = 'transform 0.3s ease';
+    deleteItemBtn.style.transform = 'scale(1.2)';
     deleteItemBtn.addEventListener('click', function () {
         itemsNameContainer.removeChild(newItem);
     });
