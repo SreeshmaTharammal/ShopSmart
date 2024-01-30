@@ -578,7 +578,11 @@ newListClose.addEventListener('click', function () {
  * Add event handler for delete all button
  */
 const deleteAllItemsButton = document.querySelector('.delete-all-btn');
-deleteAllItemsButton.addEventListener('click', function () {       
+deleteAllItemsButton.addEventListener('click', function () {   
+    if(itemsListContainer.innerHTML == '') {
+        return;
+    }
+    
     createDialogBox(
         "Do you want to delete all items from list?",
         function () {
