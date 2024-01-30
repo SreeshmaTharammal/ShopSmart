@@ -431,14 +431,16 @@
     cursor: default;
  }
 
- footer a {
-    background-color: white;
-    border-radius: 20px;
-    font-size: 1.6rem;
+ footer a {   
+    background-color: black;
+    color: white;
+    border-radius: 40px;
+    font-size: 1.9rem;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 1rem 1rem 1.5rem;   
+    text-decoration: none;
  }
 
  footer a:hover {
