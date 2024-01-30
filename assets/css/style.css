@@ -308,6 +308,11 @@
     margin-right: 10px;
  }
 
+ .enter-item-btn:hover {
+   transform: scale(1.1);
+   transition: transform 0.3s ease;
+ }
+
  .items-list-container-div {
     width: 100%;
     display: flex;
