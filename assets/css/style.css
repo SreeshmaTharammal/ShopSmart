@@ -30,6 +30,7 @@
  main {
     min-width: 300px;
     max-width: 900px;
+    font-family:'Inter', sans-serif;;
     position: relative;
     cursor: default;
     display: flex;
@@ -144,6 +145,13 @@
     width: 100%;
     flex: 1;
  }
+
+ #list-names-container:empty::before {
+   content: "Click '+' to create a list";  
+   text-align: center;
+   margin-top: 1.5rem;   
+ }
+
  
  #search-btn::-webkit-search-cancel-button {
    cursor: pointer;
