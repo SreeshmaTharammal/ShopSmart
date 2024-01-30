@@ -15,35 +15,22 @@ const addItemTabContent = document.getElementById('add-item-tab-content');
  * Add shopping list name, called when '+' on home(list names) screen clicked.
  * Hide the home screen and display the add list name screen.
  */
-function addListName(list, listName) {
+function addListName() {
     // Clear list name screen text field
     newListSection.children[1].children[1].value = '';
-    // Hide list names screen 
-    listNamesSection.style.display = 'none';
-
-    // Display add new list screen
-    let newList = document.getElementById('add-new-list-section');
-    newList.style.display = 'block';
-
-    const editBtn = document.getElementById('new-list-save');
-
-    if(list === 'Edit List'){
-        const listNameElement = document.querySelector('list-name');
-        let texfield = document.getElementById('list-name-text-field');
-        texfield.value = listName.slice(0, -1);   
-    }          
     
-    var newListHeader = document.querySelector('.add-new-list-heading-text');
-    newListHeader.textContent = list;
-
-    // Change background to white  
-  //  mainContainer.style.backgroundColor = 'white';
+    listNamesSection.style.display = 'none';
+    
+    const newList = document.getElementById('add-new-list-section');
+    newList.style.display = 'block';
+    
+    const newListHeader = document.querySelector('.add-new-list-heading-text');
+    newListHeader.textContent = 'New List';
 
     // Set focus
     let textField = document.getElementById('list-name-text-field');
     textField.focus();
 }
-
 
 /**
  * Go to items list screen when click on list name on home screen.
@@ -52,11 +39,8 @@ function addListName(list, listName) {
  * @param {*} event 
  * @returns 
  */
-function showListItems(event) {
-    // Hide home(list names) screen    
-    listNamesSection.style.display = 'none';
-
-    // Display items list screen    
+function showListItems(event) {      
+    listNamesSection.style.display = 'none';      
     itemsListSection.style.display = 'flex';
 
     let currentListName = event.target.textContent; 
@@ -69,8 +53,10 @@ function showListItems(event) {
     }
 
     for (const itemNameStatusStr of shoppingLists[currentListName]) {
+        // Value for each list contains item name and status which is saved as JSON string. Parse the
+        // string to get item name and status
         const itemNameStatus = JSON.parse(itemNameStatusStr);
-        addItemFn(itemNameStatus[0], itemNameStatus[1]);
+        addItemToList(itemNameStatus[0], itemNameStatus[1]);
     }
 }
 
@@ -78,10 +64,8 @@ function showListItems(event) {
  * 
  * @param {*} listName 
  */
-function editListName(listName) {
-    // Hide home(list names) screen    
-    listNamesSection.style.display = 'none';
-    
+function editListName(listName) {        
+    listNamesSection.style.display = 'none';    
     newListSection.style.display = 'block';
 
     const editListHeader = document.querySelector('.add-new-list-heading-text');
@@ -90,11 +74,12 @@ function editListName(listName) {
     let texfield = document.getElementById('list-name-text-field');
     texfield.value = listName.slice(0, -1);  
 
+    // Save the current list name to retrive in the edit view.
     localStorage.setItem('currentListName', listName.slice(0, -1));
 }
 
 /**
- * 
+ * Search input handler
  */
 function filterLists() {
     const searchTerm = document.getElementById('search-btn').value;
@@ -108,7 +93,13 @@ function filterLists() {
     displayShoppingList(searchResult, false);
 }
 
+/**
+ * Search for the user input value inside list and return reduced shopping list object 
+ * @param {*} searchTerm - Value to be searched
+ * @returns Returns the reduced object from shopping list which includes the search term
+ */
 function searchShoppingList(searchTerm) {
+    // Inspired from Microsoft copiot response
     const filteredKeys = Object.keys(shoppingLists).filter(key => {
       return key.toLowerCase().includes(searchTerm.toLowerCase());
     });
@@ -116,6 +107,11 @@ function searchShoppingList(searchTerm) {
     return filterShoppingList(filteredKeys);
 }
 
+/**
+ * Returns reduced shopping list object for the array of keys provided 
+ * @param {*} keys - Array of keys
+ * @returns Returns the reduced object from shopping list for the all keys
+ */
 function filterShoppingList(keys) {
     return keys.reduce((result, key) => {
       if (shoppingLists.hasOwnProperty(key)) {
@@ -126,9 +122,7 @@ function filterShoppingList(keys) {
   }
 
 /**
- * Save shopping list name, called when click save button on add new list screen.
- * 
- * @returns 
+ * Save shopping list name, called when click save button on add new list screen or from edit existing list.
  */
 function saveListName() {
     const newListHeader = document.querySelector('.add-new-list-heading-text');
@@ -182,26 +176,34 @@ function saveListName() {
     }
     // Update items list screen heading text
     document.getElementById('items-list-heading-text').textContent = newListText;
-
-    // Display items list screen    
+      
     itemsListSection.style.display = 'flex';
-
-    // Hide add new list screen     
     newListSection.style.display = 'none';
 
     displayAllShoppingList();
 }
 
+/**
+ * Updates shopping list with values saved in the global shopping list object and saves value to local storage
+ */
 function displayAllShoppingList() {
     displayShoppingList(shoppingLists, true)
 }
 
+/**
+ * Updates shopping list disaply using the object provides. Optionally value can be to local storage.
+ * @param {*} shoppingListsToDisplay - Dictionary object which is should be used to update the shopping list disaply
+ * @param {*} isRequiredToSave - If true, tgis value will be saved to local storage as well.
+ */
 function displayShoppingList(shoppingListsToDisplay, isRequiredToSave) {
     listNamesContainer.innerHTML = '';
 
-    for (const list in shoppingListsToDisplay) {
-        const listNameElement = document.createElement('li');
-        listNameElement.setAttribute('class', 'list-name');
+    for (let list in shoppingListsToDisplay) {
+        
+        const deleteTooltip = createTooltip();
+        const editTooltip = createTooltip();
+        const listNameElement = document.createElement('li');       
+        listNameElement.classList.add('list-name', 'cursor-point');
         listNameElement.textContent = list;        
         listNamesContainer.appendChild(listNameElement);
 
@@ -218,12 +220,20 @@ function displayShoppingList(shoppingListsToDisplay, isRequiredToSave) {
         listNameElement.appendChild(editListBtn);
 
         editListBtn.addEventListener('click', function() {
-            console.log("Edit btn");
             editListName(listNameElement.textContent);
+        });
+
+        editListBtn.addEventListener('mouseover', function(event) {
+            showTooltip(editTooltip, event, 'Edit list name');
+        });
+
+        editListBtn.addEventListener('mouseout', function() {
+            editTooltip.style.visibility = 'hidden';            
         });
 
         let deleteListBtn = document.createElement('button');
         deleteListBtn.setAttribute('id', 'delete-list-btn');
+        deleteListBtn.setAttribute('class', 'cursor-point');        
         deleteListBtn.textContent = 'X';
         listNameElement.appendChild(deleteListBtn);
 
@@ -235,20 +245,34 @@ function displayShoppingList(shoppingListsToDisplay, isRequiredToSave) {
                     displayAllShoppingList();
                 });  
         });
+
+        deleteListBtn.addEventListener('mouseover', function(event) {
+            showTooltip(deleteTooltip, event, 'Delete list');
+        });
+
+        deleteListBtn.addEventListener('mouseout', function() {
+            deleteTooltip.style.visibility = 'hidden';           
+        });
+
+        editListBtn.appendChild(editTooltip);
+        deleteListBtn.appendChild(deleteTooltip);
     }
 
     if(isRequiredToSave) {
-        saveToLocal();
+        saveToLocal(shoppingListsToDisplay);
     }
 }
 
-function saveToLocal() {
-    localStorage.setItem('SHOPPINGLIST', JSON.stringify(shoppingLists));
+/**
+ * Save to local storage
+ */
+function saveToLocal(shoppingListsToSave) {
+    localStorage.setItem('SHOPPINGLIST', JSON.stringify(shoppingListsToSave));
 };
 
 /**
- * 
- * @param {*} message 
+ * Shows message to user
+ * @param {*} message - Message to be disaplyed
  */
 function showMessage(message) {
     let messageContainer = document.querySelector('.message-container');
@@ -265,7 +289,7 @@ function showMessage(message) {
 }
 
 /**
- * Call 'addItemFn' function, called when click on add button on items list screen
+ * Event handler for all item button
  */
 function addItemOnClick() {
     addItemTabContent.style.display = 'flex';
@@ -275,22 +299,24 @@ function addItemOnClick() {
     if (!itemName) {
         return;
     }
+
     document.querySelector('.item-text-field').value = '';
     document.querySelector('.item-text-field').focus();
 
-    addItemFn(itemName);
+    addItemToList(itemName);
 }
 
 /**
  * Add items to the items list screen.
- * @param {*} itemName 
+ * @param {*} itemName - Name of the item
+ * @param {*} itemStatus - Status of the item is it checked or not
  */
-function addItemFn(itemName, itemStatus = false) {
+function addItemToList(itemName, itemStatus = false) {
     const itemsNameContainer = document.getElementById('items-list-container');
     // creating checkbox element
     let checkbox = document.createElement('input');
 
-    // Assigning the attributes to created checkbox
+    // Assigning the attributes to create checkbox
     checkbox.type = "checkbox";
     checkbox.name = "name";
     checkbox.value = "value";
@@ -326,13 +352,10 @@ function addItemFn(itemName, itemStatus = false) {
 }
 
 /**
- * GO back to home screen when click on back arrow on items list screen
+ * Event handler for back button in the item screen
  */
-function backToHome() {
-    // Display home(list names) screen    
-    listNamesSection.style.display = 'flex';
-
-    // Hide items list screen    
+function backHomeScreen() {      
+    listNamesSection.style.display = 'flex';     
     itemsListSection.style.display = 'none';
 
     let items = [];
@@ -356,6 +379,7 @@ function backToHome() {
         let status = checkbox.checked;
         console.log(`status: ${status}`);
         
+        // Add item name and check status staus to dictionary
         items.push(JSON.stringify([item, status]));
     }
 
@@ -369,10 +393,9 @@ function backToHome() {
 }
 
 /**
- * Shows add item text field, called when click on add item secton om items list screen
+ * Event handler for add item button
  */
-function enterItem() {
-    // Hide add item section    
+function enterItem() {      
     addItemTabContent.style.display = 'none';
 
     // Display text field  and add button below items list screen heading
@@ -384,6 +407,21 @@ function enterItem() {
     textField.focus();
 }
 
+function createTooltip() {
+    const tooltipEle = document.createElement('div');
+
+    tooltipEle.style.visibility = 'hidden';
+    tooltipEle.style.position = 'relative';
+    tooltipEle.style.width = '20px';
+    tooltipEle.style.fontSize = '5px'
+    tooltipEle.style.textTransform = 'none';
+
+    return tooltipEle;
+}
+
+/**
+ * Window On load handler which loads the current shopping list from local storage and updates list view. 
+ */
 window.onload = function() {
    
     const listFromLocal  = JSON.parse(localStorage.getItem('SHOPPINGLIST'));  
@@ -396,18 +434,24 @@ window.onload = function() {
     displayAllShoppingList();   
 }
 
+/**
+ * Disables all parents clicks
+ */
 function disableParentClicks() {
     document.body.style.pointerEvents = "none";
 }
   
+/**
+ * Enables all parent clicks
+ */
 function enableParentClicks() {
     document.body.style.pointerEvents = "auto";
 }
 
 /**
- * Suggestion from Microsoft copilot
- * @param {*} message 
- * @param {*} okCallback 
+ * Custom OK and Cancel button. This is implemented using suggestion from Microsoft Copiot response  
+ * @param {*} message - Message to be disaplyed
+ * @param {*} okCallback - Callback for Ok button handler.
  */
 function createDialogBox(message, okCallback) {
     const dialogBox = document.createElement("div");
@@ -446,28 +490,65 @@ function createDialogBox(message, okCallback) {
     document.body.appendChild(dialogBox);
     disableParentClicks();
 
+    // Above disable parents clicks function will disable OK and cancel buttoin clicks as well.
+    // Hence enable clicks for OK and Cancel button only here. 
     okButton.style.pointerEvents = 'auto';
     cancelButton.style.pointerEvents = 'auto';
 }
 
+/**
+ * 
+ * @param {*} e 
+ * @param {*} message 
+ */
+function showTooltip(tooltip, e, message) {
+    let posX = e.clientX;
+    let posY = e.clientY;
+
+    tooltip.innerHTML = message;
+    tooltip.style.top = (posY);
+    tooltip.style.left = (posX);
+    tooltip.style.visibility = 'visible';
+}
+
+
+
+/**
+ * Add event handler for all list button
+ */
 const addListButton = document.getElementById('list-add-btn');
 addListButton.addEventListener('click', function() {
-    addListName('New List');
+    addListName();
   });
 
-let save = document.getElementById('new-list-save');
-save.addEventListener('click', saveListName);
+/**
+ * Add event handler for list save button
+ */  
+const saveButton = document.getElementById('new-list-save');
+saveButton.addEventListener('click', saveListName);
 
-let backHome = document.querySelector('.back-arrow');
-backHome.addEventListener('click', backToHome);
+/**
+ * Add event handler for back arrow in the item screen
+ */
+const backHome = document.querySelector('.back-arrow');
+backHome.addEventListener('click', backHomeScreen);
 
-let addItemcontent = document.getElementById('add-item-tab-content');
+/**
+ * Add event handler for add item button
+ */
+const addItemcontent = document.getElementById('add-item-tab-content');
 addItemcontent.addEventListener('click', enterItem);
 
-let addItem = document.querySelector('.enter-item-btn');
+/**
+ * Add event handler for Add button in the new item screen
+ */
+const addItem = document.querySelector('.enter-item-btn');
 addItem.addEventListener('click', addItemOnClick);
 
-let newListClose = document.querySelector('.new-list-xmark');
+/**
+ * Add event handler for close button in the new list screen
+ */
+const newListClose = document.querySelector('.new-list-xmark');
 newListClose.addEventListener('click', function () {
     newListSection.style.display = 'none';
     listNamesSection.style.display = 'flex';     
@@ -475,27 +556,15 @@ newListClose.addEventListener('click', function () {
     newListSection.children[1].children[1].value = '';
 });
 
-const deleteAllItems = document.querySelector('.delete-all-btn');
-deleteAllItems.addEventListener('click', function () {       
+/**
+ * Add event handler for delete all button
+ */
+const deleteAllItemsButton = document.querySelector('.delete-all-btn');
+deleteAllItemsButton.addEventListener('click', function () {       
     createDialogBox(
-        "?",
+        "Do you want to delete all items from list?",
         function () {
           itemsListContainer.innerHTML = '';
         }
       );
 });
-       
-            
-    
-   
-    
-
-
-
-
-
-
-
-
-
-
