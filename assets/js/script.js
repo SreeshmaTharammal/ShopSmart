@@ -318,6 +318,8 @@ function addItemToList(itemName, itemStatus = false) {
     // creating checkbox element
     let checkbox = document.createElement('input');
 
+    const deleteTooltip = createTooltip();
+
     // Assigning the attributes to create checkbox
     checkbox.type = "checkbox";
     checkbox.name = "name";
@@ -345,6 +347,17 @@ function addItemToList(itemName, itemStatus = false) {
     deleteItemBtn.addEventListener('click', function () {
         itemsNameContainer.removeChild(newItem);
     });
+
+    deleteItemBtn.addEventListener('mouseover', function(event) {
+        showTooltip(deleteTooltip, event, 'Delete item');
+    });
+
+    deleteItemBtn.addEventListener('mouseout', function() {
+        deleteTooltip.visibility = 'hidden';
+        deleteTooltip.innerHTML = '';
+    });
+
+    deleteItemBtn.appendChild(deleteTooltip);
 
     // Add list name to list Names Container in home screen
     itemsNameContainer.appendChild(newItem);
@@ -407,18 +420,6 @@ function enterItem() {
     // Set focus
     let textField = document.querySelector('.item-text-field');
     textField.focus();
-}
-
-function createTooltip() {
-    const tooltipEle = document.createElement('div');
-
-    tooltipEle.style.visibility = 'hidden';
-    tooltipEle.style.position = 'relative';
-    tooltipEle.style.width = '20px';
-    tooltipEle.style.fontSize = '5px'
-    tooltipEle.style.textTransform = 'none';
-
-    return tooltipEle;
 }
 
 /**
@@ -502,9 +503,22 @@ function createDialogBox(message, okCallback) {
 }
 
 /**
- * 
- * @param {*} e 
- * @param {*} message 
+ * Create a tooltip container 
+ */
+function createTooltip() {
+    const tooltipContainer = document.createElement('div');
+
+    tooltipContainer.style.visibility = 'hidden';
+    tooltipContainer.style.position = 'relative';
+    tooltipContainer.style.width = '20px';
+    tooltipContainer.style.fontSize = '8px'
+    tooltipContainer.style.textTransform = 'none';
+
+    return tooltipContainer;
+}
+
+/**
+ * shows tooltip relative to event position 
  */
 function showTooltip(tooltip, e, message) {
     let posX = e.clientX;
@@ -514,9 +528,8 @@ function showTooltip(tooltip, e, message) {
     tooltip.style.top = (posY);
     tooltip.style.left = (posX);
     tooltip.style.visibility = 'visible';
+    tooltip.style.marginLeft = '-20px';
 }
-
-
 
 /**
  * Add event handler for all list button
