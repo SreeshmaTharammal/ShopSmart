@@ -228,7 +228,8 @@ function displayShoppingList(shoppingListsToDisplay, isRequiredToSave) {
         });
 
         editListBtn.addEventListener('mouseout', function() {
-            editTooltip.style.visibility = 'hidden';            
+            editTooltip.style.visibility = 'hidden';    
+            editTooltip.innerHTML = '';       
         });
 
         let deleteListBtn = document.createElement('button');
@@ -251,7 +252,8 @@ function displayShoppingList(shoppingListsToDisplay, isRequiredToSave) {
         });
 
         deleteListBtn.addEventListener('mouseout', function() {
-            deleteTooltip.style.visibility = 'hidden';           
+            deleteTooltip.style.visibility = 'hidden';  
+            deleteTooltip.innerHTML = '';         
         });
 
         editListBtn.appendChild(editTooltip);
@@ -464,6 +466,7 @@ function createDialogBox(message, okCallback) {
     dialogBox.style.borderRadius = "10px";
     dialogBox.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.5)";
     dialogBox.style.zIndex = "9999";
+    dialogBox.style.backgroundColor = "#a4c2a8";
   
     const messageElement = document.createElement("p");
     messageElement.textContent = message;
@@ -471,6 +474,7 @@ function createDialogBox(message, okCallback) {
   
     const okButton = document.createElement("button");
     okButton.textContent = "OK";
+    okButton.style.backgroundColor = "red";
     okButton.style.marginRight = "10px";
     okButton.addEventListener("click", () => {
       okCallback();
@@ -481,6 +485,7 @@ function createDialogBox(message, okCallback) {
   
     const cancelButton = document.createElement("button");
     cancelButton.textContent = "Cancel";
+    cancelButton.style.backgroundColor = "green";
     cancelButton.addEventListener("click", () => {
       document.body.removeChild(dialogBox);
       enableParentClicks();
