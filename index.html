@@ -41,7 +41,7 @@
                 <h2 class="list-heading-text">Lists</h2>
                 <div class="list-heading-div">
                     <input oninput ="filterLists()" class="search-field" type="search" id="search-btn" name="search-btn" placeholder="Search List">                 
-                    <span id="list-add-btn" class="cursor-point" aria-label="List add button icon">
+                    <span id="list-add-btn" class="cursor-point">
                         <i class="fa-solid fa-plus"></i>
                         <span class="tooltiptext">Add lists</span>
                     </span>
@@ -58,11 +58,11 @@
         <!-- Items list section -->
         <section id="items-list-section" style="display: none;">
             <div class="items-list-heading">
-                <span class="back-arrow cursor-point" aria-label="Back arrow icon">
+                <button class="back-arrow cursor-point" aria-label="Back arrow icon">
                     <i class="fa-solid fa-arrow-left"></i>
                     <span class="tooltiptext">Back</span>
-                </span>
-                <h2 id="items-list-heading-text"></h2>
+                </button>
+                <h2 id="items-list-heading-text">List Name </h2>
                 <div class="delete-all-btn cursor-point">
                     <i class="fa-solid fa-trash-can"></i>
                     <span class="tooltiptext">Delete all items</span>   
@@ -70,9 +70,9 @@
             </div>
             <div class="add-item-tab">
                 <div id="add-item-tab-content" class = "cursor-point">
-                    <span class="add-item-btn" aria-label="Item add button icon">
+                    <button class="add-item-btn" aria-label="Item add button icon">
                         <i class="fa-solid fa-plus"></i>
-                    </span>
+                    </button>
                     <h3 class="add-item-text ">Add Item</h3>
                 </div>
                 <div class="add-item-name-container" style="display: none;">
@@ -90,10 +90,10 @@
         <!-- Add new list section -->
         <section id="add-new-list-section" style="display: none;">
             <div class="add-new-list-heading">
-                <span class="new-list-xmark cursor-point" aria-label="New list screen xmark">
+                <button class="new-list-xmark cursor-point" aria-label="New list screen xmark">
                     <i class="fa-solid fa-xmark"></i>
-                </span>
-                <h2 class="add-new-list-heading-text"></h2>
+                </button>
+                <h2 class="add-new-list-heading-text">New List</h2>
                 <h3 id="new-list-save" class="cursor-point">SAVE</h3>
             </div>
 
@@ -109,7 +109,7 @@
     <!--Footer-->
     <footer>
         <p>
-            <i class="fa-regular fa-copyright" aria-label="Copy right icon"></i> 
+            <i class="fa-regular fa-copyright"></i> 
             Created by Sreeshma Tharammal
         </p>        
         <a href="https://github.com/SreeshmaTharammal" target="_blank" rel="noopener"

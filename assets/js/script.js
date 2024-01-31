@@ -36,9 +36,14 @@ function addListName() {
  * Go to items list screen when click on list name on home screen.
  * Update curresponding items from shoppingLists dictionary.
  */
-function showListItems(currentListName) {      
+function showListItems(event) {    
+    if(event.target.nodeName != 'LI') {
+        return;
+    }  
     listNamesSection.style.display = 'none';      
     itemsListSection.style.display = 'flex';
+
+    const currentListName = event.target.textContent.slice(0,-1);
 
     // Update items list screen heading text
     document.getElementById('items-list-heading-text').textContent = currentListName;
@@ -46,7 +51,7 @@ function showListItems(currentListName) {
         return;
     }
 
-    for (const itemNameStatusStr of shoppingLists[currentListName]) {
+    for (let itemNameStatusStr of shoppingLists[currentListName]) {
         // Value for each list contains item name and status which is saved as JSON string. Parse the
         // string to get item name and status
         const itemNameStatus = JSON.parse(itemNameStatusStr);
@@ -58,9 +63,11 @@ function showListItems(currentListName) {
  * 
  * @param {*} listName 
  */
-function editListName(listName) {        
+function editListName(event) {        
     listNamesSection.style.display = 'none';    
     newListSection.style.display = 'block';
+
+    const listName = event.target.parentNode.firstChild.textContent;
 
     const editListHeader = document.querySelector('.add-new-list-heading-text');
     editListHeader.textContent = 'Edit List';        
@@ -182,7 +189,7 @@ function saveListName() {
  * Updates shopping list with values saved in the global shopping list object and saves value to local storage
  */
 function displayAllShoppingList() {
-    displayShoppingList(shoppingLists, true)
+    displayShoppingList(shoppingLists, true);
 }
 
 /**
@@ -194,37 +201,19 @@ function displayShoppingList(shoppingListsToDisplay, isRequiredToSave) {
     listNamesContainer.innerHTML = '';
 
     for (let list in shoppingListsToDisplay) {
-        
-        const deleteTooltip = createTooltip();
-        const editTooltip = createTooltip();
         const listNameElement = document.createElement('li');       
         listNameElement.classList.add('list-name', 'cursor-point');
         listNameElement.textContent = list;        
         listNamesContainer.appendChild(listNameElement);
 
-        listNameElement.addEventListener("click", function (event) {
-            if(event.target === listNameElement) {                
-                showListItems(list);
-            }
-        });
+        listNameElement.addEventListener("click", showListItems);
         
         let editListBtn = document.createElement('i');
         editListBtn.classList.add('fa', 'fa-edit');
         editListBtn.setAttribute('id', 'edit-list-btn');
         listNameElement.appendChild(editListBtn);
 
-        editListBtn.addEventListener('click', function() {                               
-            editListName(list);          
-        });
-
-        editListBtn.addEventListener('mouseover', function(event) {
-            showTooltip(editTooltip, event, 'Edit list name');
-        });
-
-        editListBtn.addEventListener('mouseout', function() {
-            editTooltip.style.visibility = 'hidden';    
-            editTooltip.innerHTML = '';       
-        });
+        editListBtn.addEventListener('click', editListName);
 
         let deleteListBtn = document.createElement('button');
         deleteListBtn.setAttribute('id', 'delete-list-btn');
@@ -233,25 +222,7 @@ function displayShoppingList(shoppingListsToDisplay, isRequiredToSave) {
         listNameElement.appendChild(deleteListBtn);
 
          // Add a click event to the button
-        deleteListBtn.addEventListener("click", function (event) {  
-            createDialogBox(`Do you want to delete ${list}?`,
-                function() {
-                    delete shoppingLists[list];
-                    displayAllShoppingList();
-                });  
-        });
-
-        deleteListBtn.addEventListener('mouseover', function(event) {
-            showTooltip(deleteTooltip, event, 'Delete list');
-        });
-
-        deleteListBtn.addEventListener('mouseout', function() {
-            deleteTooltip.style.visibility = 'hidden';  
-            deleteTooltip.innerHTML = '';         
-        });
-
-        editListBtn.appendChild(editTooltip);
-        deleteListBtn.appendChild(deleteTooltip);
+        deleteListBtn.addEventListener("click", deleteListBtnHandler);
     }
 
     if(isRequiredToSave) {
@@ -259,12 +230,21 @@ function displayShoppingList(shoppingListsToDisplay, isRequiredToSave) {
     }
 }
 
+function deleteListBtnHandler(event) {
+    const currentListName = event.target.parentNode.firstChild.textContent; 
+    createDialogBox(`Do you want to delete ${currentListName}?`,
+                function() {
+                    delete shoppingLists[currentListName];
+                    displayAllShoppingList();
+                });
+}
+
 /**
  * Save to local storage
  */
 function saveToLocal(shoppingListsToSave) {
     localStorage.setItem('SHOPPINGLIST', JSON.stringify(shoppingListsToSave));
-};
+}
 
 /**
  * Shows message to user
@@ -312,8 +292,6 @@ function addItemToList(itemName, itemStatus = false) {
     // creating checkbox element
     let checkbox = document.createElement('input');
 
-    const deleteTooltip = createTooltip();
-
     // Assigning the attributes to create checkbox
     checkbox.type = "checkbox";
     checkbox.name = "name";
@@ -333,7 +311,7 @@ function addItemToList(itemName, itemStatus = false) {
     label.appendChild(document.createTextNode(itemName));
 
     let newItem = document.createElement('li');
-    newItem.setAttribute('class', 'items-list')
+    newItem.setAttribute('class', 'items-list');
 
     let deleteItemBtn = document.createElement('button');
     deleteItemBtn.setAttribute('id', 'delete-item-btn');
@@ -343,18 +321,7 @@ function addItemToList(itemName, itemStatus = false) {
     deleteItemBtn.style.transform = 'scale(1.2)';
     deleteItemBtn.addEventListener('click', function () {
         itemsNameContainer.removeChild(newItem);
-    });
-
-    deleteItemBtn.addEventListener('mouseover', function(event) {
-        showTooltip(deleteTooltip, event, 'Delete item');
-    });
-
-    deleteItemBtn.addEventListener('mouseout', function() {
-        deleteTooltip.visibility = 'hidden';
-        deleteTooltip.innerHTML = '';
-    });
-
-    deleteItemBtn.appendChild(deleteTooltip);
+    });    
 
     // Add list name to list Names Container in home screen
     itemsNameContainer.appendChild(newItem);
@@ -388,8 +355,7 @@ function backHomeScreen() {
     for (let item of itemsList) {
         item = item.textContent.slice(0, -1);
         const checkbox = document.getElementById(`checkbox-${item}`);
-        let status = checkbox.checked;
-        console.log(`status: ${status}`);
+        let status = checkbox.checked;        
         
         // Add item name and check status staus to dictionary
         items.push(JSON.stringify([item, status]));
@@ -433,7 +399,7 @@ window.onload = function() {
     shoppingLists = listFromLocal;
     listNamesContainer.innerHTML.trim();
     displayAllShoppingList();   
-}
+};
 
 /**
  * Disables all parents clicks
@@ -498,35 +464,6 @@ function createDialogBox(message, okCallback) {
     // Hence enable clicks for OK and Cancel button only here. 
     okButton.style.pointerEvents = 'auto';
     cancelButton.style.pointerEvents = 'auto';
-}
-
-/**
- * Create a tooltip container 
- */
-function createTooltip() {
-    const tooltipContainer = document.createElement('div');
-
-    tooltipContainer.style.visibility = 'hidden';
-    tooltipContainer.style.position = 'relative';
-    tooltipContainer.style.width = '20px';
-    tooltipContainer.style.fontSize = '8px'
-    tooltipContainer.style.textTransform = 'none';
-
-    return tooltipContainer;
-}
-
-/**
- * shows tooltip relative to event position 
- */
-function showTooltip(tooltip, e, message) {
-    let posX = e.clientX;
-    let posY = e.clientY;
-
-    tooltip.innerHTML = message;
-    tooltip.style.top = (posY);
-    tooltip.style.left = (posX);
-    tooltip.style.visibility = 'visible';
-    tooltip.style.marginLeft = '-20px';
 }
 
 /**
