@@ -446,6 +446,8 @@ function createDialogBox(message, okCallback) {
   
     const okButton = document.createElement("button");
     okButton.textContent = "OK";
+    okButton.style.width = '60px';
+    okButton.classList.add('cursor-point');
     okButton.style.backgroundColor = "red";
     okButton.style.marginRight = "10px";
     okButton.addEventListener("click", () => {
@@ -456,7 +458,9 @@ function createDialogBox(message, okCallback) {
     dialogBox.appendChild(okButton);
   
     const cancelButton = document.createElement("button");
-    cancelButton.textContent = "Cancel";
+    cancelButton.textContent = "Cancel";    
+    cancelButton.style.width = '60px';
+    cancelButton.classList.add('cursor-point');
     cancelButton.style.backgroundColor = "green";
     cancelButton.addEventListener("click", () => {
       document.body.removeChild(dialogBox);
