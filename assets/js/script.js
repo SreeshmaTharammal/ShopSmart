@@ -39,6 +39,10 @@ function showListItems(event) {
     }  
     listNamesSection.style.display = 'none';      
     itemsListSection.style.display = 'flex';
+    
+    addItemTabContent.style.display = 'flex';
+    const addItemNameContainer = document.querySelector('.add-item-name-container');
+    addItemNameContainer.style.display = 'none';
 
     const currentListName = event.target.textContent.slice(0,-1);
 
@@ -90,6 +94,12 @@ function filterLists() {
     const searchResult = searchShoppingList(searchTerm);
 
     displayShoppingList(searchResult, false);
+    
+    if(Object.keys(searchResult).length === 0) {
+        listNamesContainer.innerHTML = 'No list found';
+        listNamesContainer.style.textAlign = 'center';
+        listNamesContainer.style.marginTop = '80px';
+    }
 }
 
 /**
@@ -125,8 +135,9 @@ function filterShoppingList(keys) {
  */
 function saveListName() {
     const newListHeader = document.querySelector('.add-new-list-heading-text');
+    
     // Get the list name entered
-    const newListText = document.getElementById('list-name-text-field').value;    
+    const newListText = document.getElementById('list-name-text-field').value.trim();    
 
     if (newListText === '') {
         showMessage('Enter a list name');
@@ -195,7 +206,8 @@ function displayAllShoppingList() {
  * @param {*} isRequiredToSave - If true, tgis value will be saved to local storage as well.
  */
 function displayShoppingList(shoppingListsToDisplay, isRequiredToSave) {
-    listNamesContainer.innerHTML = '';
+    listNamesContainer.innerHTML = '';    
+    listNamesContainer.style.marginTop = '45px'; 
 
     for (let list in shoppingListsToDisplay) {
         const listNameElement = document.createElement('li');       
@@ -267,7 +279,7 @@ function addItemOnClick() {
     addItemTabContent.style.display = 'flex';
     const addItemNameContainer = document.querySelector('.add-item-name-container');
     addItemNameContainer.style.display = 'none';
-    const itemName = document.querySelector('.item-text-field').value;
+    const itemName = document.querySelector('.item-text-field').value.trim();
     if (!itemName) {
         return;
     }
@@ -384,10 +396,13 @@ window.onload = function() {
    
     const listFromLocal  = JSON.parse(localStorage.getItem('SHOPPINGLIST'));  
      
-    if ((listFromLocal == null) || (Object.keys(listFromLocal).length === 0)) {        
+    if ((listFromLocal == null) || (Object.keys(listFromLocal).length === 0)) { 
+        listNamesContainer.innerHTML = "Click '+' to create a list";    
+        listNamesContainer.style.textAlign = 'center';
+        listNamesContainer.style.marginTop = '80px';   
         return;
     }
-
+      
     shoppingLists = listFromLocal;
     listNamesContainer.innerHTML.trim();
     displayAllShoppingList();   
