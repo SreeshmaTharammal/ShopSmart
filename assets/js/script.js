@@ -1,9 +1,6 @@
-//Global scope vars to keep the state between functions
-
 //Sets an empty shoppingList that can be overriden on load by the localstorage
 let shoppingLists = {};
 
-const mainContainer = document.getElementById('main-container');
 const listNamesSection = document.getElementById('list-names-section');
 const itemsListSection = document.getElementById('items-list-section');
 const newListSection = document.getElementById('add-new-list-section');
