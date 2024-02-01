@@ -212,9 +212,8 @@ function displayShoppingList(shoppingListsToDisplay, isRequiredToSave) {
 
         editListBtn.addEventListener('click', editListName);
 
-        let deleteListBtn = document.createElement('button');
-        deleteListBtn.setAttribute('id', 'delete-list-btn');
-        deleteListBtn.setAttribute('class', 'cursor-point');        
+        let deleteListBtn = document.createElement('button');   
+        deleteListBtn.classList.add('delete-list-btn', 'cursor-point');    
         deleteListBtn.textContent = 'X';
         listNameElement.appendChild(deleteListBtn);
 
@@ -296,13 +295,9 @@ function addItemToList(itemName, itemStatus = false) {
     checkbox.style.cursor = 'pointer';
     checkbox.checked = itemStatus;    
     checkbox.setAttribute('class', 'checkbox');
-    checkbox.setAttribute('id', `checkbox-${itemName}`);
 
     // creating label for checkbox
     let label = document.createElement('label');
-
-    // assigning attributes for the created label tag 
-    label.htmlFor = `checkbox-${itemName}`;
 
     // appending the created text to the created label tag     
     label.appendChild(document.createTextNode(itemName));
@@ -350,12 +345,12 @@ function backHomeScreen() {
 
     // iterate items list and add to the array
     for (let item of itemsList) {
-        item = item.textContent.slice(0, -1);
-        const checkbox = document.getElementById(`checkbox-${item}`);
+        const itemName = item.childNodes[1].textContent;
+        const checkbox = item.firstChild;
         let status = checkbox.checked;        
         
         // Add item name and check status staus to dictionary
-        items.push(JSON.stringify([item, status]));
+        items.push(JSON.stringify([itemName, status]));
     }
 
     // Add the items array to curresponding list name 
